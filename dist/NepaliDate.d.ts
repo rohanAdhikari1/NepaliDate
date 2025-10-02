@@ -1,0 +1,48 @@
+import type { NepaliDateObj, NepaliDateProps } from "./types";
+export default class NepaliDate {
+    year: number;
+    month: number;
+    day: number;
+    dayOfWeek: number;
+    hour: number;
+    minute: number;
+    second: number;
+    private _locale;
+    constructor({ year, month, day, dayOfWeek, hour, minute, second, locale, }: NepaliDateProps);
+    static fromAd(date: Date): NepaliDate;
+    static now(): NepaliDate;
+    static parse(date: string): NepaliDate;
+    toObject(): NepaliDateObj;
+    toArray(withTime?: boolean, withoutSecond?: boolean, withdayofWeek?: boolean): Record<string, string | number>;
+    toAd(): Date;
+    format(format?: string): string;
+    toString(): string;
+    locale(value?: string): string | this;
+    isAfter(date: string | NepaliDate): boolean;
+    isBefore(date: string | NepaliDate): boolean;
+    isValid(): boolean;
+    daysInMonth(): number;
+    setYear(year: number): this;
+    setMonth(month: number): this;
+    setDay(day: number): this;
+    setHour(hour: number): this;
+    setMinute(minute: number): this;
+    setSecond(second: number): this;
+    addDay(): this;
+    addDays(days: number): this;
+    addMonth(): this;
+    addMonths(months: number): this;
+    addYear(): this;
+    addYears(years: number): this;
+    subDay(): this;
+    subDays(days: number): this;
+    subMonth(): this;
+    subMonths(months: number): this;
+    subYear(): this;
+    subYears(years: number): this;
+    addWeek(): this;
+    addWeeks(weeks: number): this;
+    subWeek(): this;
+    subWeeks(weeks: number): this;
+}
+//# sourceMappingURL=NepaliDate.d.ts.map

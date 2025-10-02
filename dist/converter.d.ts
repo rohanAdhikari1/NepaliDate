@@ -1,0 +1,10 @@
+export declare const ADtoBS: (year: number, month: number, day: number) => [number, number, number, number];
+export declare const BStoAD: (year: number, month: number, day: number) => [number, number, number, number];
+export declare const calculateAddDays: (year: number, month: number, day: number, dayOfWeek: number, days: number) => [number, number, number, number];
+export declare const calculateAddMonths: (year: number, month: number, day: number, dayOfWeek: number, months: number) => [number, number, number, number];
+export declare const calculateAddYears: (year: number, month: number, day: number, dayOfWeek: number, years: number) => [number, number, number, number];
+export declare const calculateSubDays: (year: number, month: number, day: number, dayOfWeek: number, days: number) => [number, number, number, number];
+export declare const calculateSubMonths: (year: number, month: number, day: number, dayOfWeek: number, months: number) => [number, number, number, number];
+export declare const calculateSubYears: (year: number, month: number, day: number, dayOfWeek: number, years: number) => [number, number, number, number];
+export declare const calculateAddSecond: () => void;
+//# sourceMappingURL=converter.d.ts.map

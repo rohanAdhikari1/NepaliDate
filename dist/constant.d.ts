@@ -1,0 +1,22 @@
+export declare const START_YEAR_BS = 2000;
+export declare const START_MONTH_BS = 9;
+export declare const START_DAY_BS = 17;
+export declare const START_WEEK_DAY_BS = 3;
+export declare const START_YEAR_AD = 1944;
+export declare const START_MONTH_AD = 4;
+export declare const START_DAY_AD = 14;
+export declare const START_WEEK_DAY_AD = 7;
+export declare const NEPALI_DATE_MAP: number[][];
+export declare const NORMAL_MONTHS: number[];
+export declare const LEAP_MONTHS: number[];
+export declare const MONTHS_EN: string[];
+export declare const MONTHS_SHORT_EN: string[];
+export declare const MONTHS_NP: string[];
+export declare const MONTHS_SHORT_NP: string[];
+export declare const NUM_NP: string[];
+export declare const WEEKDAYS_SHORT_EN: string[];
+export declare const WEEKDAYS_LONG_EN: string[];
+export declare const WEEKDAYS_SHORT_NP: string[];
+export declare const WEEKDAYS_LONG_NP: string[];
+export declare const REGEX_PARSE: RegExp;
+//# sourceMappingURL=constant.d.ts.map

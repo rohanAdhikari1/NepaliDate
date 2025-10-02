@@ -1,0 +1,35 @@
+{
+  "name": "nepali-day-js",
+  "version": "0.0.1",
+  "description": "Nepali Date support for js, which handle nepali date.",
+  "keywords": [
+    "NepaliDate",
+    "NepaliDateTime",
+    "NepaliDateSupport",
+    "Bs Date",
+    "nepali-day-js",
+    "nepali day js"
+  ],
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rohanAdhikari1/NepaliDate"
+  },
+  "license": "MIT",
+  "author": "Rohan Adhikari",
+  "type": "module",
+  "main": "dist/index",
+   "exports": {
+    ".": "./dist/index.js",
+    "./locale": "./dist/locale.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "typescript": "^5.9.2"
+  }
+}
