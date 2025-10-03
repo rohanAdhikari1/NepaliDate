@@ -5,7 +5,7 @@ import { validateBS, validateAD } from "./validator";
 export const ADtoBS = (year, month, day) => {
     validateAD(year, month, day);
     let totalAdDays = getTotalADDays(year, month, day);
-    let bsYear = START_YEAR_BS, bsMonth = START_MONTH_BS, bsDay = START_DAY_BS - 1, dayOfWeek = START_WEEK_DAY_BS;
+    let bsYear = START_YEAR_BS, bsMonth = START_MONTH_BS, bsDay = START_DAY_BS - 1, dayOfWeek = START_WEEK_DAY_BS - 1;
     let i = 0, j = bsMonth;
     while (totalAdDays > 0) {
         let daysInMonth = NEPALI_DATE_MAP[i]?.[j] ?? 0;
@@ -31,7 +31,7 @@ export const ADtoBS = (year, month, day) => {
 export const BStoAD = (year, month, day) => {
     validateBS(year, month, day);
     let totalBsDays = getTotalBSDays(year, month, day);
-    let adYear = START_YEAR_AD, adMonth = START_MONTH_AD, adDay = START_DAY_AD - 1, dayOfWeek = START_WEEK_DAY_AD;
+    let adYear = START_YEAR_AD, adMonth = START_MONTH_AD, adDay = START_DAY_AD - 1, dayOfWeek = START_WEEK_DAY_AD - 1;
     while (totalBsDays > 0) {
         const daysInMonth = getDaysInADMonth(adYear, adMonth);
         adDay++;

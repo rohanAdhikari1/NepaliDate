@@ -81,16 +81,19 @@ Leaving it blank or null ensures it is calculated correctly.
 You can initialize a `NepaliDate` using a date string.  
 The following formats are supported:
 
-| Format                | Example               | Description                   |
-| :-------------------- | :-------------------- | :---------------------------- |
-| `YYYY-MM-DD`          | `2082-06-16`          | Standard ISO-like format      |
-| `YYYY/MM/DD`          | `2082/06/16`          | Slash-separated format        |
-| `YYYY.MM.DD`          | `2082.06.16`          | Dot-separated format          |
-| `YYYY MM DD`          | `2082 06 16`          | Space-separated format        |
-| `YYYY-MM-DD HH:mm`    | `2082-06-16 14:30`    | With hour and minute          |
-| `YYYY-MM-DD HH:mm:ss` | `2082-06-16 14:30:45` | With hour, minute, and second |
-| `YYYY/MM/DD HH:mm:ss` | `2082/06/16 23:59:59` | Slash format with time        |
-| `YYYY.MM.DD HH:mm:ss` | `2082.06.16 00:00:00` | Dot format with time          |
+### Supported Date Formats
+
+| Format                                                    | Example      | Description       |
+| :-------------------------------------------------------- | :----------- | :---------------- |
+| `YYYY-MM-DD` / `YYYY/MM/DD` / `YYYY.MM.DD` / `YYYY MM DD` | `2082-06-16` | Year-first format |
+| `DD-MM-YYYY` / `DD/MM/YYYY` / `DD.MM.YYYY` / `DD MM YYYY` | `16-06-2082` | Day-first format  |
+
+### Supported Time Formats (optional)
+
+| Format     | Example    | Description                 |
+| :--------- | :--------- | :-------------------------- |
+| `HH:mm`    | `14:30`    | Hours and minutes           |
+| `HH:mm:ss` | `14:30:45` | Hours, minutes, and seconds |
 
 **Example:**
 
@@ -156,6 +159,7 @@ format: `YYYY-MM-DD HH:mm:ss`
 ### `toAd()`
 
 Converts the NepaliDate instance to its equivalent **Gregorian (AD)** date.
+
 **Returns:**
 
 - `date` – native JavaScript `Date` object in the Gregorian calendar.
@@ -164,8 +168,39 @@ Converts the NepaliDate instance to its equivalent **Gregorian (AD)** date.
 
 ### `format(pattern?: string)`
 
-Formats the NepaliDate instance according to the provided pattern.
-If no pattern is provided, defaults to `YYYY-MM-DD`.
+Formats the `NepaliDate` instance according to the provided pattern and locale-specific rules, and returns a string of the formatted date.
+
+- **Parameters**
+  - `pattern` _(optional)_: A string representing the desired date format.  
+    If no pattern is provided, it defaults to `YYYY-MM-DD`.
+
+- **Returns**
+  - `string`: The formatted date according to the given pattern and locale.
+
+**List of available formats**
+| Format | Output | Description |
+|--------|--------|-------------|
+| D | 1-32 | The day of the month |
+| DD | 01-32 | The day of the month, 2-digits |
+| M | 1-12 | The month, beginning at 1 |
+| MM | 01-12 | The month, 2-digits |
+| MMM | Bai-Cha | The abbreviated month name |
+| MMMM | Baisakh-Chaitra | The full month name |
+| YY | 82 | Two-digit year |
+| YYY | 082 | Last 3 digits of the year |
+| YYYY | 2082 | Four-digit year |
+| d | 1-7 | The day of the week, with Sunday as 1 |
+| dd | Sun-Sat | Short day name |
+| ddd | Sunday-Saturday| Full day name|
+| H | 0-23 | The hour, 24-hour clock |
+| HH | 00-23 | The hour, 24-hour clock, 2-digits |
+| h | 1-12 | The hour, 12-hour clock |
+| hh | 01-12 | The hour, 12-hour clock, 2-digits |
+| m | 0-59 | The minute |
+| mm | 00-59 | The minute, 2-digits |
+| s | 0-59 | The second |
+| ss | 00-59 | The second, 2-digits |
+| A | AM/PM | Ante meridiem / Post meridiem |
 
 ---
 
@@ -202,9 +237,11 @@ console.log(date.toString());
 // Convert to AD (Gregorian) date
 console.log(date.toAd());
 // Fri Oct 03 2025 14:30:45 GMT+0545 (Nepal Time)
-```
 
-<!-- **Supported patterns:** -->
+date.format(); // "2082-06-16" (default)
+date.format("DD/MM/YYYY"); // "16/06/2082"
+date.locale("np").format("MMMM D, YYYY"); // "आश्विन १६, २०८२"
+```
 
 ---
 
@@ -233,6 +270,7 @@ Getter methods **retrieve values** from the current `NepaliDate` instance withou
 | --------------- | ---------- | -------- | ------------------------------------------------------- |
 | `dayOfWeek()`   | None       | `number` | Returns the day of the week (0–6).                      |
 | `daysInMonth()` | None       | `number` | Returns the number of days in the current Nepali month. |
+| `locale()`      | None       | `string` | Returns the current locale.                             |
 
 ---
 
@@ -249,7 +287,6 @@ When a value is passed, a **new `NepaliDate` instance is returned** with the upd
 | `hour(hour?: number)`     | `hour?: number`   | `number` or `NepaliDate` | Gets the current hour, or returns a new instance with the updated hour.     |
 | `minute(minute?: number)` | `minute?: number` | `number` or `NepaliDate` | Gets the current minute, or returns a new instance with the updated minute. |
 | `second(second?: number)` | `second?: number` | `number` or `NepaliDate` | Gets the current second, or returns a new instance with the updated second. |
-| `locale(value?: string)`  | `value?: string`  | `string` or `NepaliDate` | Gets the current locale, or returns a new instance with the updated locale. |
 
 ---
 
@@ -262,6 +299,23 @@ When a value is passed, a **new `NepaliDate` instance is returned** with the upd
 ---
 
 ### Example
+
+```ts
+const date = nepalidayjs("2082-06-16 14:30:45");
+
+// Setter (mutates the instance)
+date.setYear(2081).setMonth(2).setDay(5);
+console.log(date.format("YYYY-MM-DD")); // "2081-02-05"
+
+// Getter (reads values)
+console.log(date.dayOfWeek()); // 7
+console.log(date.daysInMonth()); // 32
+
+// Setter/Getter (deep copy, immutable)
+const newDate = date.year(2082).month(3).day(10);
+console.log(newDate.format("YYYY-MM-DD")); // "2082-03-10"
+console.log(date.format("YYYY-MM-DD")); // "2081-02-05" (original unchanged)
+```
 
 ---
 
