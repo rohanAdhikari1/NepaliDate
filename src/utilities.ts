@@ -129,7 +129,7 @@ export const compareDates = (
   date2: NepaliDate,
   withTime: boolean = false,
 ): number => {
-if (date1.year() > date2.year()) return 1;
+  if (date1.year() > date2.year()) return 1;
   if (date1.year() < date2.year()) return -1;
 
   if (date1.month() > date2.month()) return 1;

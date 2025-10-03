@@ -44,13 +44,13 @@ describe("NepaliDate Class", () => {
     expect(nd.day()).toBe(15);
   });
 
-    it("should compare dates correctly", () => {
-      const nd1 = new NepaliDate(sampleDate);
-      const nd2 = nd1.add(4,"day");
-      expect(nd1.isBefore(nd2)).toBe(true);
-      expect(nd2.isAfter(nd1)).toBe(true);
-      expect(nd1.isSame(nd1)).toBe(true);
-    });
+  it("should compare dates correctly", () => {
+    const nd1 = new NepaliDate(sampleDate);
+    const nd2 = nd1.add(4, "day");
+    expect(nd1.isBefore(nd2)).toBe(true);
+    expect(nd2.isAfter(nd1)).toBe(true);
+    expect(nd1.isSame(nd1)).toBe(true);
+  });
 
   it("should add and subtract days, months, years correctly", () => {
     const nd = new NepaliDate(sampleDate);

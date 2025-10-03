@@ -58,16 +58,16 @@ export default function format(
           // Time
           case "H":
           case "HH":
-            return localenumber(pad(dateobj.hour || 0),locale);
+            return localenumber(pad(dateobj.hour || 0), locale);
           case "h":
           case "hh":
-            return localenumber(pad(to12Hour(dateobj.hour || 0)),locale);
+            return localenumber(pad(to12Hour(dateobj.hour || 0)), locale);
           case "m":
           case "mm":
-            return localenumber(pad(dateobj.minute || 0),locale);
+            return localenumber(pad(dateobj.minute || 0), locale);
           case "s":
           case "ss":
-            return localenumber(pad(dateobj.second || 0),locale);
+            return localenumber(pad(dateobj.second || 0), locale);
           case "A":
             return (dateobj.hour || 0) < 12 ? "AM" : "PM";
 
