@@ -20,11 +20,11 @@ export declare const isLeapYear: (year: number) => boolean;
  */
 export declare const getDaysInADMonth: (year: number, month: number) => number;
 /**
- * Total days from START_YEAR_AD to given AD date
+ * Total days from BASE_YEAR_AD to given AD date
  */
 export declare const getTotalADDays: (year: number, month: number, day: number) => number;
 /**
- * Total days from START_YEAR_BS to given BS date
+ * Total days from BASE_YEAR_BS to given BS date
  */
 export declare const getTotalBSDays: (year: number, month: number, day: number) => number;
 /**
@@ -36,8 +36,11 @@ export declare const convertToUnicode: (nums: string | number) => string;
  */
 export declare const convertToDigit: (nums: string | number) => string;
 /**
- * Compare two Nepali dates
- * Returns true if startDate is after endDate, false otherwise
+ * Compare two Nepali dates.
+ * Returns:
+ *   1 if date1 > date2
+ *  -1 if date1 < date2
+ *   0 if date1 === date2
  */
-export declare const compareDates: (startDate: NepaliDate, endDate: NepaliDate, withTime?: boolean) => boolean;
+export declare const compareDates: (date1: NepaliDate, date2: NepaliDate, withTime?: boolean) => number;
 //# sourceMappingURL=utilities.d.ts.map

@@ -1,11 +1,13 @@
+export const BASE_YEAR_BS = 2000;
 export const START_YEAR_BS = 2000;
 export const START_MONTH_BS = 9;
 export const START_DAY_BS = 17;
-export const START_WEEK_DAY_BS = 3;
-export const START_YEAR_AD = 1944;
+export const START_WEEK_DAY_BS = 6; //7
+export const BASE_YEAR_AD = 1944;
+export const START_YEAR_AD = 1943;
 export const START_MONTH_AD = 4;
 export const START_DAY_AD = 14;
-export const START_WEEK_DAY_AD = 7;
+export const START_WEEK_DAY_AD = 4;
 export const NEPALI_DATE_MAP = [
     [2000, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
     [2001, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],

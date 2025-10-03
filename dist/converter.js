@@ -1,4 +1,4 @@
-import { START_YEAR_AD, START_YEAR_BS, START_MONTH_BS, START_WEEK_DAY_AD, START_WEEK_DAY_BS, NEPALI_DATE_MAP, START_DAY_BS, START_MONTH_AD, START_DAY_AD, } from "./constant";
+import { START_YEAR_AD, START_YEAR_BS, START_MONTH_BS, START_WEEK_DAY_AD, START_WEEK_DAY_BS, NEPALI_DATE_MAP, START_DAY_BS, START_MONTH_AD, START_DAY_AD, BASE_YEAR_BS, } from "./constant";
 import { getDaysInBSMonth, sumArray, getDaysInADMonth, getTotalADDays, getTotalBSDays, } from "./utilities";
 import { validateBS, validateAD } from "./validator";
 // Conversion Functions
@@ -93,7 +93,7 @@ export const calculateAddMonths = (year, month, day, dayOfWeek, months) => {
 export const calculateAddYears = (year, month, day, dayOfWeek, years) => {
     validateBS(year, month, day);
     let totalDays = 0;
-    let yearIndex = year - START_YEAR_BS;
+    let yearIndex = year - BASE_YEAR_BS;
     totalDays += sumArray(NEPALI_DATE_MAP[yearIndex].slice(month));
     for (let i = 0; i < years; i++) {
         totalDays += sumArray(NEPALI_DATE_MAP[yearIndex + i].slice(1));
@@ -147,7 +147,7 @@ export const calculateSubMonths = (year, month, day, dayOfWeek, months) => {
 export const calculateSubYears = (year, month, day, dayOfWeek, years) => {
     validateBS(year, month, day);
     let totalDays = 0;
-    let yearIndex = year - START_YEAR_BS;
+    let yearIndex = year - BASE_YEAR_BS;
     totalDays += sumArray(NEPALI_DATE_MAP[yearIndex].slice(1, month - 1));
     for (let i = 0; i < years; i++) {
         totalDays += sumArray(NEPALI_DATE_MAP[yearIndex - i].slice(1));

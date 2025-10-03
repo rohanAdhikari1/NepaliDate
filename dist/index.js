@@ -1,6 +1,7 @@
-import { MONTHS_EN, MONTHS_NP, MONTHS_SHORT_EN, MONTHS_SHORT_NP, WEEKDAYS_LONG_EN, WEEKDAYS_LONG_NP, WEEKDAYS_SHORT_EN, WEEKDAYS_SHORT_NP, } from "./constant";
+import { BASE_YEAR_BS, MONTHS_EN, MONTHS_NP, MONTHS_SHORT_EN, MONTHS_SHORT_NP, NEPALI_DATE_MAP, WEEKDAYS_LONG_EN, WEEKDAYS_LONG_NP, WEEKDAYS_SHORT_EN, WEEKDAYS_SHORT_NP, } from "./constant";
 import NepaliDate from "./NepaliDate";
 import { parseWithOutFormat } from "./parse";
+import { getDaysInBSMonth } from "./utilities";
 export { NepaliDate };
 const initialize = (adDate) => {
     if (!(adDate instanceof Date)) {
@@ -57,11 +58,34 @@ nepalidayjs.months = function (locale = "en") {
 nepalidayjs.monthsShort = function (locale = "en") {
     return locale === "np" ? MONTHS_SHORT_NP : MONTHS_SHORT_EN;
 };
+nepalidayjs.minDate = function (locale = "en") {
+    const minDate = new NepaliDate({ year: BASE_YEAR_BS, month: 1, day: 1, locale: locale });
+    if (!minDate.isValid()) {
+        throw new Error("Error on retriving Min Date");
+    }
+    return minDate;
+};
+nepalidayjs.maxDate = function (locale = "en") {
+    const year = BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1;
+    const maxDate = new NepaliDate({ year: year, month: 12, day: getDaysInBSMonth(year, 12), locale: locale });
+    if (!maxDate.isValid()) {
+        throw new Error("Error on retriving Max Date");
+    }
+    return maxDate;
+};
+nepalidayjs.minYear = function () {
+    return BASE_YEAR_BS;
+};
+nepalidayjs.maxYear = function () {
+    const year = BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1;
+    return year;
+};
 nepalidayjs.isValid = function (date) {
     if (date instanceof NepaliDate) {
         return date.isValid();
     }
     else if (typeof date === "string") {
+        throw new Error("Feature Not Available in current version");
         // nepalidayjs(date)
     }
     else {

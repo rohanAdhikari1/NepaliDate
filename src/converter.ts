@@ -8,6 +8,7 @@ import {
   START_DAY_BS,
   START_MONTH_AD,
   START_DAY_AD,
+  BASE_YEAR_BS,
 } from "./constant";
 
 import {
@@ -133,7 +134,7 @@ export const calculateAddMonths = (year: number, month: number, day: number, day
 export const calculateAddYears = (year: number, month: number, day: number, dayOfWeek: number, years: number): [number, number, number, number] => {
   validateBS(year, month, day);
   let totalDays = 0;
-  let yearIndex = year - START_YEAR_BS;
+  let yearIndex = year - BASE_YEAR_BS;
   totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]!.slice(month));
   for (let i = 0; i < years; i++) {
     totalDays += sumArray(NEPALI_DATE_MAP[yearIndex + i]!.slice(1));
@@ -187,7 +188,7 @@ export const calculateSubMonths = (year: number, month: number, day: number, day
 export const calculateSubYears = (year: number, month: number, day: number, dayOfWeek: number, years: number): [number, number, number, number] => {
   validateBS(year, month, day);
   let totalDays = 0;
-  let yearIndex = year - START_YEAR_BS;
+  let yearIndex = year - BASE_YEAR_BS;
   totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]!.slice(1, month - 1));
   for (let i = 0; i < years; i++) {
     totalDays += sumArray(NEPALI_DATE_MAP[yearIndex - i]!.slice(1));

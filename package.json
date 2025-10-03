@@ -19,17 +19,21 @@
   },
   "license": "MIT",
   "author": "Rohan Adhikari",
-  "type": "module",
+  "type": "commonjs",
   "main": "dist/index",
-   "exports": {
+  "exports": {
     ".": "./dist/index.js",
     "./locale": "./dist/locale.js"
   },
   "scripts": {
+    "test": "jest",
     "build": "tsc"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.6.0",
-    "typescript": "^5.9.2"
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.4",
+    "typescript": "^5.9.3"
   }
 }

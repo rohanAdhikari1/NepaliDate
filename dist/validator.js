@@ -1,4 +1,4 @@
-import { NEPALI_DATE_MAP, START_YEAR_AD, START_YEAR_BS } from "./constant";
+import { BASE_YEAR_AD, BASE_YEAR_BS, NEPALI_DATE_MAP } from "./constant";
 import { getDaysInBSMonth, getDaysInADMonth } from "./utilities";
 export const validateHour = (hour) => {
     if (hour > 24 && hour < 0) {
@@ -12,8 +12,8 @@ export const validateMinuteSecond = (value) => {
     return true;
 };
 export const validateBsYear = (year) => {
-    if (year < START_YEAR_BS ||
-        year > START_YEAR_BS + NEPALI_DATE_MAP.length - 1) {
+    if (year < BASE_YEAR_BS ||
+        year > BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1) {
         return false;
     }
     return true;
@@ -32,9 +32,9 @@ export const validateBsDay = (year, month, day) => {
     return true;
 };
 export const validateAD = (year, month, day) => {
-    if (year < START_YEAR_AD ||
-        year > START_YEAR_AD + NEPALI_DATE_MAP.length - 1) {
-        throw new Error(`Supported AD years: ${START_YEAR_AD}-${START_YEAR_AD + NEPALI_DATE_MAP.length - 1}`);
+    if (year < BASE_YEAR_AD ||
+        year > BASE_YEAR_AD + NEPALI_DATE_MAP.length - 1) {
+        throw new Error(`Supported AD years: ${BASE_YEAR_AD}-${BASE_YEAR_AD + NEPALI_DATE_MAP.length - 1}`);
     }
     if (!validateMonth(month)) {
         throw new Error(`Invalid month ${month}. Supported months: 1-12`);
@@ -46,7 +46,7 @@ export const validateAD = (year, month, day) => {
 };
 export const validateBS = (year, month, day) => {
     if (!validateBsYear(year)) {
-        throw new Error(`Supported BS years: ${START_YEAR_BS}-${START_YEAR_BS + NEPALI_DATE_MAP.length - 1}`);
+        throw new Error(`Supported BS years: ${BASE_YEAR_BS}-${BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1}`);
     }
     if (!validateMonth(month)) {
         throw new Error(`Invalid month ${month}. Supported months: 1-12`);

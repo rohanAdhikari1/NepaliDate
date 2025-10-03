@@ -1,11 +1,11 @@
 import {
   NEPALI_DATE_MAP,
-  START_YEAR_BS,
   NORMAL_MONTHS,
   LEAP_MONTHS,
   NUM_NP,
-  START_YEAR_AD,
-  START_WEEK_DAY_BS
+  BASE_YEAR_BS,
+  BASE_YEAR_AD,
+  START_WEEK_DAY_AD
 } from "./constant";
 import type NepaliDate from "./NepaliDate";
 
@@ -19,7 +19,7 @@ export const calculateDayofWeek = (
   day: number
 ): number => {
   const totalDays = getTotalBSDays(year, month, day);
-  let dayOfWeek = START_WEEK_DAY_BS;
+  let dayOfWeek = START_WEEK_DAY_AD;
   dayOfWeek = ((dayOfWeek + totalDays - 1) % 7) + 1;
   return dayOfWeek;
 };
@@ -28,7 +28,7 @@ export const calculateDayofWeek = (
  * Get number of days in a BS month
  */
 export const getDaysInBSMonth = (year: number, month: number): number => {
-  const yearIndex = year - START_YEAR_BS;
+  const yearIndex = year - BASE_YEAR_BS;
   return NEPALI_DATE_MAP[yearIndex]?.[month] ?? 0;
 };
 
@@ -50,11 +50,11 @@ export const getDaysInADMonth = (year: number, month: number): number =>
   (isLeapYear(year) ? LEAP_MONTHS[month - 1] : NORMAL_MONTHS[month - 1]) ??0;
 
 /**
- * Total days from START_YEAR_AD to given AD date
+ * Total days from BASE_YEAR_AD to given AD date
  */
 export const getTotalADDays = (year: number, month: number, day: number): number => {
   let totalDays = 0;
-  for (let y = START_YEAR_AD; y < year; y++) {
+  for (let y = BASE_YEAR_AD; y < year; y++) {
     totalDays += sumArray(isLeapYear(y) ? LEAP_MONTHS : NORMAL_MONTHS);
   }
   totalDays += sumArray((isLeapYear(year) ? LEAP_MONTHS : NORMAL_MONTHS).slice(0, month - 1));
@@ -62,17 +62,17 @@ export const getTotalADDays = (year: number, month: number, day: number): number
 };
 
 /**
- * Total days from START_YEAR_BS to given BS date
+ * Total days from BASE_YEAR_BS to given BS date
  */
 export const getTotalBSDays = (year: number, month: number, day: number): number => {
   let totalDays = 0;
 
-  for (let y = START_YEAR_BS; y < year; y++) {
-    const yearIndex = y - START_YEAR_BS;
+  for (let y = BASE_YEAR_BS; y < year; y++) {
+    const yearIndex = y - BASE_YEAR_BS;
     totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]?.slice(1) ?? []);
   }
 
-  const yearIndex = year - START_YEAR_BS;
+  const yearIndex = year - BASE_YEAR_BS;
   totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]?.slice(1, month - 1) ?? []);
 
   return totalDays + day;

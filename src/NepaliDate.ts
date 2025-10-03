@@ -16,7 +16,7 @@ import {
 import Sformat from "./format";
 import { localenumber } from "./locale";
 
-import type { NepaliDateObj, NepaliDateProps } from "./types";
+import type { DateUnits, NepaliDateObj, NepaliDateProps } from "./types";
 import {
   validateBsDay,
   validateBsYear,
@@ -129,7 +129,14 @@ export default class NepaliDate {
 
   toAd(): Date {
     const [year, month, day, _] = BStoAD(this._year, this._month, this._day);
-    return new Date(year, month - 1, day, this._hour, this._minute, this._second);
+    return new Date(
+      year,
+      month - 1,
+      day,
+      this._hour,
+      this._minute,
+      this._second
+    );
   }
 
   format(format: string = "YYYY-MM-DD"): string {
@@ -205,6 +212,10 @@ export default class NepaliDate {
     });
   }
 
+  dayOfWeek(): number {
+    return this._dayOfWeek;
+  }
+
   day(day?: number): NepaliDate | number {
     if (day === undefined) return this._day;
     return new NepaliDate({
@@ -272,6 +283,108 @@ export default class NepaliDate {
     }
     this._second = second;
     return this;
+  }
+
+  add(value: number, unit: DateUnits): NepaliDate {
+    let { year, month, day, hour, minute, dayOfWeek } = this.toObject();
+
+    switch (unit) {
+      case "year": {
+        [year, month, day, dayOfWeek] = calculateAddYears(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value
+        );
+        break;
+      }
+
+      case "month": {
+        [year, month, day, dayOfWeek] = calculateAddMonths(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value
+        );
+        break;
+      }
+
+      case "day": {
+        [year, month, day, dayOfWeek] = calculateAddDays(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value
+        );
+        break;
+      }
+
+      case "hour": {
+        hour += value;
+        while (hour >= 24) {
+          hour -= 24;
+          [year, month, day, dayOfWeek] = calculateAddDays(
+            year,
+            month,
+            day,
+            dayOfWeek,
+            1
+          );
+        }
+        while (hour < 0) {
+          hour += 24;
+          [year, month, day, dayOfWeek] = calculateAddDays(
+            year,
+            month,
+            day,
+            dayOfWeek,
+            -1
+          );
+        }
+        break;
+      }
+
+      case "minute": {
+        minute += value;
+        while (minute >= 60) {
+          minute -= 60;
+          hour += 1;
+        }
+        while (minute < 0) {
+          minute += 60;
+          hour -= 1;
+        }
+        while (hour >= 24) {
+          hour -= 24;
+          [year, month, day, dayOfWeek] = calculateAddDays(
+            year,
+            month,
+            day,
+            dayOfWeek,
+            1
+          );
+        }
+        while (hour < 0) {
+          hour += 24;
+          [year, month, day, dayOfWeek] = calculateAddDays(
+            year,
+            month,
+            day,
+            dayOfWeek,
+            -1
+          );
+        }
+        break;
+      }
+
+      default:
+        throw new Error(`Unsupported unit: ${unit}`);
+    }
+
+    return new NepaliDate({ year, month, day, hour, minute, dayOfWeek });
   }
 
   addDay(): this {

@@ -1,11 +1,13 @@
+export declare const BASE_YEAR_BS = 2000;
 export declare const START_YEAR_BS = 2000;
 export declare const START_MONTH_BS = 9;
 export declare const START_DAY_BS = 17;
-export declare const START_WEEK_DAY_BS = 3;
-export declare const START_YEAR_AD = 1944;
+export declare const START_WEEK_DAY_BS = 6;
+export declare const BASE_YEAR_AD = 1944;
+export declare const START_YEAR_AD = 1943;
 export declare const START_MONTH_AD = 4;
 export declare const START_DAY_AD = 14;
-export declare const START_WEEK_DAY_AD = 7;
+export declare const START_WEEK_DAY_AD = 4;
 export declare const NEPALI_DATE_MAP: number[][];
 export declare const NORMAL_MONTHS: number[];
 export declare const LEAP_MONTHS: number[];

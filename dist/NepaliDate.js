@@ -6,13 +6,13 @@ import { validateBsDay, validateBsYear, validateHour, validateMinuteSecond, vali
 import { parseWithOutFormat } from "./parse";
 export default class NepaliDate {
     constructor({ year, month, day, dayOfWeek = null, hour = 0, minute = 0, second = 0, locale = "en", }) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.dayOfWeek = dayOfWeek ?? calculateDayofWeek(year, month, day);
-        this.hour = hour;
-        this.minute = minute;
-        this.second = second;
+        this._year = year;
+        this._month = month;
+        this._day = day;
+        this._dayOfWeek = dayOfWeek ?? calculateDayofWeek(year, month, day);
+        this._hour = hour;
+        this._minute = minute;
+        this._second = second;
         this._locale = locale;
     }
     static fromAd(date) {
@@ -49,35 +49,35 @@ export default class NepaliDate {
     }
     toObject() {
         return {
-            year: this.year,
-            month: this.month,
-            day: this.day,
-            dayOfWeek: this.dayOfWeek,
-            hour: this.hour,
-            minute: this.minute,
-            second: this.second,
+            year: this._year,
+            month: this._month,
+            day: this._day,
+            dayOfWeek: this._dayOfWeek,
+            hour: this._hour,
+            minute: this._minute,
+            second: this._second,
         };
     }
     toArray(withTime = true, withoutSecond = false, withdayofWeek = false) {
         const date = {};
-        date["year"] = localenumber(this.year, this._locale);
-        date["month"] = localenumber(this.month, this._locale);
-        date["day"] = localenumber(this.day, this._locale);
+        date["year"] = localenumber(this._year, this._locale);
+        date["month"] = localenumber(this._month, this._locale);
+        date["day"] = localenumber(this._day, this._locale);
         if (withdayofWeek) {
-            date["dayOfWeek"] = localenumber(this.dayOfWeek, this._locale);
+            date["dayOfWeek"] = localenumber(this._dayOfWeek, this._locale);
         }
         if (withTime) {
-            date["hour"] = localenumber(this.hour, this._locale);
-            date["minute"] = localenumber(this.minute, this._locale);
+            date["hour"] = localenumber(this._hour, this._locale);
+            date["minute"] = localenumber(this._minute, this._locale);
             if (!withoutSecond) {
-                date["second"] = localenumber(this.second, this._locale);
+                date["second"] = localenumber(this._second, this._locale);
             }
         }
         return date;
     }
     toAd() {
-        const [year, month, day, _] = BStoAD(this.year, this.month, this.day);
-        return new Date(year, month - 1, day, this.hour, this.minute, this.second);
+        const [year, month, day, _] = BStoAD(this._year, this._month, this._day);
+        return new Date(year, month - 1, day, this._hour, this._minute, this._second);
     }
     format(format = "YYYY-MM-DD") {
         return Sformat(this.toObject(), format, this._locale);
@@ -95,62 +95,120 @@ export default class NepaliDate {
         this._locale = value === "np" ? "np" : "en";
         return this;
     }
-    isAfter(date) {
-        if (date instanceof NepaliDate) {
-            return compareDates(date, this);
-        }
-        const parsedate = NepaliDate.parse(date);
-        return compareDates(parsedate, this);
-    }
     isBefore(date) {
-        if (date instanceof NepaliDate) {
-            return compareDates(this, date);
+        if (!(date instanceof NepaliDate)) {
+            date = NepaliDate.parse(date);
         }
-        const parsedate = NepaliDate.parse(date);
-        return compareDates(this, parsedate);
+        return compareDates(this, date) === -1;
+    }
+    isAfter(date) {
+        if (!(date instanceof NepaliDate)) {
+            date = NepaliDate.parse(date);
+        }
+        return compareDates(this, date) === 1;
+    }
+    isSame(date) {
+        if (!(date instanceof NepaliDate)) {
+            date = NepaliDate.parse(date);
+        }
+        return compareDates(this, date) === 0;
     }
     isValid() {
-        return (validateBsYear(this.year) &&
-            validateMonth(this.month) &&
-            validateBsDay(this.year, this.month, this.day) &&
-            validateHour(this.hour) &&
-            validateMinuteSecond(this.month) &&
-            validateMinuteSecond(this.second));
+        return (validateBsYear(this._year) &&
+            validateMonth(this._month) &&
+            validateBsDay(this._year, this._month, this._day) &&
+            validateHour(this._hour) &&
+            validateMinuteSecond(this._minute) &&
+            validateMinuteSecond(this._second));
     }
     daysInMonth() {
-        return getDaysInBSMonth(this.year, this.month);
+        return getDaysInBSMonth(this._year, this._month);
+    }
+    year(year) {
+        if (year === undefined)
+            return this._year;
+        return new NepaliDate({
+            ...this.toObject(),
+            year,
+            dayOfWeek: calculateDayofWeek(year, this._month, this._day),
+        });
+    }
+    month(month) {
+        if (month === undefined)
+            return this._month;
+        return new NepaliDate({
+            ...this.toObject(),
+            month,
+            dayOfWeek: calculateDayofWeek(this._year, month, this._day),
+        });
+    }
+    dayOfWeek() {
+        return this._dayOfWeek;
+    }
+    day(day) {
+        if (day === undefined)
+            return this._day;
+        return new NepaliDate({
+            ...this.toObject(),
+            day,
+            dayOfWeek: calculateDayofWeek(this._year, this._month, day),
+        });
+    }
+    hour(hour) {
+        if (hour === undefined)
+            return this._hour;
+        if (!validateHour(hour))
+            throw new Error("Invalid Hour");
+        return new NepaliDate({ ...this.toObject(), hour });
+    }
+    minute(minute) {
+        if (minute === undefined)
+            return this._minute;
+        if (!validateMinuteSecond(minute))
+            throw new Error("Invalid Minute");
+        return new NepaliDate({ ...this.toObject(), minute });
+    }
+    second(second) {
+        if (second === undefined)
+            return this._second;
+        if (!validateMinuteSecond(second))
+            throw new Error("Invalid Second");
+        return new NepaliDate({ ...this.toObject(), second });
     }
     setYear(year) {
-        this.year = year;
+        this._dayOfWeek = calculateDayofWeek(year, this._month, this._day);
+        this._year = year;
         return this;
     }
     setMonth(month) {
-        this.month = month;
+        this._dayOfWeek = calculateDayofWeek(this._year, month, this._day);
+        this._month = month;
         return this;
     }
     setDay(day) {
-        this.day = day;
+        this._dayOfWeek = calculateDayofWeek(this._year, this._month, day);
+        this._day = day;
         return this;
     }
     setHour(hour) {
         if (!validateHour(hour)) {
             throw new Error("Invalid Hour");
         }
-        this.hour = hour;
+        this._hour = hour;
         return this;
     }
     setMinute(minute) {
         if (!validateMinuteSecond(minute)) {
             throw new Error("Invalid Minute");
         }
-        this.minute = minute;
+        this._minute = minute;
         return this;
     }
     setSecond(second) {
         if (!validateMinuteSecond(second)) {
             throw new Error("Invalid Second");
         }
-        this.second = second;
+        this._second = second;
         return this;
     }
     addDay() {
@@ -160,7 +218,7 @@ export default class NepaliDate {
         if (!Number.isFinite(days)) {
             throw new Error(`Invalid argument: days must be a finite number, received ${days}`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateAddDays(this.year, this.month, this.day, this.dayOfWeek, days);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateAddDays(this._year, this._month, this._day, this._dayOfWeek, days);
         return this;
     }
     addMonth() {
@@ -170,7 +228,7 @@ export default class NepaliDate {
         if (!Number.isFinite(months)) {
             throw new Error(`Invalid argument: months must be a finite number`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateAddMonths(this.year, this.month, this.day, this.dayOfWeek, months);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateAddMonths(this._year, this._month, this._day, this._dayOfWeek, months);
         return this;
     }
     addYear() {
@@ -180,7 +238,7 @@ export default class NepaliDate {
         if (!Number.isFinite(years)) {
             throw new Error(`Invalid argument: years must be a finite number`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateAddYears(this.year, this.month, this.day, this.dayOfWeek, years);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateAddYears(this._year, this._month, this._day, this._dayOfWeek, years);
         return this;
     }
     subDay() {
@@ -190,7 +248,7 @@ export default class NepaliDate {
         if (!Number.isFinite(days)) {
             throw new Error(`Invalid argument: days must be a finite number`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateSubDays(this.year, this.month, this.day, this.dayOfWeek, days);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateSubDays(this._year, this._month, this._day, this._dayOfWeek, days);
         return this;
     }
     subMonth() {
@@ -200,7 +258,7 @@ export default class NepaliDate {
         if (!Number.isFinite(months)) {
             throw new Error(`Invalid argument: months must be a finite number`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateSubMonths(this.year, this.month, this.day, this.dayOfWeek, months);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateSubMonths(this._year, this._month, this._day, this._dayOfWeek, months);
         return this;
     }
     subYear() {
@@ -210,7 +268,7 @@ export default class NepaliDate {
         if (!Number.isFinite(years)) {
             throw new Error(`Invalid argument: years must be a finite number`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateSubYears(this.year, this.month, this.day, this.dayOfWeek, years);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateSubYears(this._year, this._month, this._day, this._dayOfWeek, years);
         return this;
     }
     addWeek() {
@@ -220,7 +278,7 @@ export default class NepaliDate {
         if (!Number.isFinite(weeks)) {
             throw new Error(`Invalid argument: weeks must be a finite number`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateAddDays(this.year, this.month, this.day, this.dayOfWeek, weeks * 7);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateAddDays(this._year, this._month, this._day, this._dayOfWeek, weeks * 7);
         return this;
     }
     subWeek() {
@@ -230,7 +288,7 @@ export default class NepaliDate {
         if (!Number.isFinite(weeks)) {
             throw new Error(`Invalid argument: weeks must be a finite number`);
         }
-        [this.year, this.month, this.day, this.dayOfWeek] = calculateSubDays(this.year, this.month, this.day, this.dayOfWeek, weeks * 7);
+        [this._year, this._month, this._day, this._dayOfWeek] = calculateSubDays(this._year, this._month, this._day, this._dayOfWeek, weeks * 7);
         return this;
     }
 }
