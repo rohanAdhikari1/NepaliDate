@@ -5,6 +5,7 @@ import {
   sumArray,
   isLeapYear,
   convertToDigit,
+  calculateDayofWeek,
 } from "../src/utilities";
 
 describe("Date Utilities", () => {
@@ -50,32 +51,20 @@ describe("Date Utilities", () => {
     });
   });
 
-  //TODO: make test suitable
-
-  //   describe("getTotalADDays()", () => {
-  //     it("calculates total days from BASE_YEAR_AD to given AD date", () => {
-  //       const days = getTotalADDays(BASE_YEAR_AD, 1, 1);
-  //       expect(days).toBe(1);
-  //       const nextYear = getTotalADDays(BASE_YEAR_AD + 1, 1, 1);
-  //       expect(nextYear).toBe(sumArray(isLeapYear(BASE_YEAR_AD) ? LEAP_MONTHS : NORMAL_MONTHS) + 1);
-  //     });
-  //   });
-
-  //   describe("getTotalBSDays()", () => {
-  //     it("calculates total BS days from BASE_YEAR_BS", () => {
-  //       const days = getTotalBSDays(BASE_YEAR_BS, 1, 1);
-  //       expect(days).toBe(1);
-  //       const nextMonth = getTotalBSDays(BASE_YEAR_BS, 2, 1);
-  //       expect(nextMonth).toBe(1 + NEPALI_DATE_MAP[0][1]);
-  //     });
-  //   });
-
-  //   describe("calculateDayofWeek()", () => {
-  //     it("calculates correct weekday", () => {
-  //       const dayOfWeek = calculateDayofWeek(BASE_YEAR_BS, 1, 1);
-  //       expect(dayOfWeek).toBe(((START_WEEK_DAY_BS + 1 - 1) % 7) + 1); // first day
-  //     });
-  //   });
+  describe("calculateDayofWeek()", () => {
+    it("calculates correct weekday", () => {
+      const dayOfWeek = calculateDayofWeek(2070, 1, 1);
+      expect(dayOfWeek).toBe(1);
+      const dayOfWeek2 = calculateDayofWeek(2061, 12, 15);
+      expect(dayOfWeek2).toBe(2);
+      const dayOfWeek3 = calculateDayofWeek(2078, 3, 1);
+      expect(dayOfWeek3).toBe(3);
+      const dayOfWeek4 = calculateDayofWeek(2080, 4, 3);
+      expect(dayOfWeek4).toBe(4);
+      const dayOfWeek5 = calculateDayofWeek(2082, 6, 17);
+      expect(dayOfWeek5).toBe(6);
+    });
+  });
 
   //   describe("compareDates()", () => {
   //     const d1: Partial<NepaliDate> = { year: 2078, month: 1, day: 1 };

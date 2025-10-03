@@ -13,7 +13,7 @@ export default class NepaliDate {
     static now(): NepaliDate;
     static parse(date: string): NepaliDate;
     toObject(): NepaliDateObj;
-    toArray(withTime?: boolean, withoutSecond?: boolean, withdayofWeek?: boolean): Record<string, string | number>;
+    toArray(withTime?: boolean, withoutSecond?: boolean, withDayOfWeek?: boolean): Array<string | number>;
     toAd(): Date;
     format(format?: string): string;
     toString(): string;

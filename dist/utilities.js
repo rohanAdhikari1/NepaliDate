@@ -4,8 +4,12 @@ import { NEPALI_DATE_MAP, NORMAL_MONTHS, LEAP_MONTHS, NUM_NP, BASE_YEAR_BS, BASE
  */
 export const calculateDayofWeek = (year, month, day) => {
     const totalDays = getTotalBSDays(year, month, day);
+    console.log(totalDays);
     let dayOfWeek = START_WEEK_DAY_AD;
-    dayOfWeek = ((dayOfWeek + totalDays - 1) % 7) + 1;
+    console.log(dayOfWeek);
+    console.log(dayOfWeek - 2 + totalDays);
+    console.log((dayOfWeek - 2 + totalDays) % 7);
+    dayOfWeek = ((dayOfWeek - 2 + totalDays) % 7) + 1;
     return dayOfWeek;
 };
 /**
@@ -48,7 +52,7 @@ export const getTotalBSDays = (year, month, day) => {
         totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]?.slice(1) ?? []);
     }
     const yearIndex = year - BASE_YEAR_BS;
-    totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]?.slice(1, month - 1) ?? []);
+    totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]?.slice(1, month) ?? []);
     return totalDays + day;
 };
 /**

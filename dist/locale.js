@@ -25,7 +25,7 @@ export const localeMonth = (num, locale) => {
  * Return short weekday name.
  */
 export const localeShortday = (num, locale) => {
-    const index = (num + 7) % 7;
+    const index = (num - 1 + 7) % 7;
     return locale === "np"
         ? WEEKDAYS_SHORT_NP[index]
         : WEEKDAYS_SHORT_EN[index];
@@ -34,7 +34,7 @@ export const localeShortday = (num, locale) => {
  * Return full weekday name.
  */
 export const localeday = (num, locale) => {
-    const index = (num + 7) % 7;
+    const index = (num - 1 + 7) % 7;
     return locale === "np" ? WEEKDAYS_LONG_NP[index] : WEEKDAYS_LONG_EN[index];
 };
 //# sourceMappingURL=locale.js.map

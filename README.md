@@ -33,7 +33,7 @@ npm install nepali-day-js
 ### Initialize Nepali Date
 
 ```ts
-import nepalidayjs from "nepali-date";
+import nepalidayjs from "nepali-day-js";
 
 // From current date
 const today = nepalidayjs();
@@ -160,10 +160,14 @@ Converts the NepaliDate instance to its equivalent **Gregorian (AD)** date.
 
 - `date` – native JavaScript `Date` object in the Gregorian calendar.
 
+---
+
 ### `format(pattern?: string)`
 
 Formats the NepaliDate instance according to the provided pattern.
 If no pattern is provided, defaults to `YYYY-MM-DD`.
+
+---
 
 ### **Example**
 
@@ -286,6 +290,8 @@ console.log(date2.isAfter(date1)); // true
 console.log(date1.isSame(date2)); // false
 ```
 
+---
+
 ## Localization Functions
 
 These functions help retrieve **months, weekdays, and numbers/strings** according to the provided locale (`en` or `np`).
@@ -322,6 +328,8 @@ localeShortday(1, "np"); // "आइत"
 localeday(1, "en"); // "Sunday"
 localeday(1, "np"); // "आइतबार"
 ```
+
+---
 
 ## 📅 Utility Methods
 

@@ -1,6 +1,13 @@
 export type Locale = "en" | "np";
 
-export type DateUnits = "year" | "month" |"week" | "day" | "hour" | "minute" | "second";
+export type DateUnits =
+  | "year"
+  | "month"
+  | "week"
+  | "day"
+  | "hour"
+  | "minute"
+  | "second";
 
 export interface NepaliDateProps {
   year: number;

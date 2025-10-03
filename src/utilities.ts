@@ -19,7 +19,7 @@ export const calculateDayofWeek = (
 ): number => {
   const totalDays = getTotalBSDays(year, month, day);
   let dayOfWeek = START_WEEK_DAY_AD;
-  dayOfWeek = ((dayOfWeek + totalDays - 1) % 7) + 1;
+  dayOfWeek = ((dayOfWeek - 2 + totalDays) % 7) + 1;
   return dayOfWeek;
 };
 
@@ -83,7 +83,7 @@ export const getTotalBSDays = (
   }
 
   const yearIndex = year - BASE_YEAR_BS;
-  totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]?.slice(1, month - 1) ?? []);
+  totalDays += sumArray(NEPALI_DATE_MAP[yearIndex]?.slice(1, month) ?? []);
 
   return totalDays + day;
 };

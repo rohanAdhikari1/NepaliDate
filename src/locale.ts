@@ -39,7 +39,7 @@ export const localeMonth = (num: number, locale: Locale): string => {
  * Return short weekday name.
  */
 export const localeShortday = (num: number, locale: Locale): string => {
-  const index = (num -1 + 7) % 7;
+  const index = (num - 1 + 7) % 7;
   return locale === "np"
     ? WEEKDAYS_SHORT_NP[index]!
     : WEEKDAYS_SHORT_EN[index]!;
@@ -49,6 +49,6 @@ export const localeShortday = (num: number, locale: Locale): string => {
  * Return full weekday name.
  */
 export const localeday = (num: number, locale: Locale): string => {
-  const index = (num -1  + 7) % 7;
+  const index = (num - 1 + 7) % 7;
   return locale === "np" ? WEEKDAYS_LONG_NP[index]! : WEEKDAYS_LONG_EN[index]!;
 };

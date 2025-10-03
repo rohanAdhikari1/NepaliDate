@@ -72,36 +72,36 @@ describe("Utilities - Localization", () => {
   describe("localeShortday()", () => {
     it("returns correct short weekday in English", () => {
       WEEKDAYS_SHORT_EN.forEach((d, i) => {
-        expect(localeShortday(i, "en")).toBe(d);
+        expect(localeShortday(i + 1, "en")).toBe(d);
       });
     });
 
     it("returns correct short weekday in Nepali", () => {
       WEEKDAYS_SHORT_NP.forEach((d, i) => {
-        expect(localeShortday(i, "np")).toBe(d);
+        expect(localeShortday(i + 1, "np")).toBe(d);
       });
     });
 
     it("wraps negative numbers correctly", () => {
-      expect(localeShortday(-1, "en")).toBe(WEEKDAYS_SHORT_EN[6]);
+      expect(localeShortday(-1, "en")).toBe(WEEKDAYS_SHORT_EN[5]);
     });
   });
 
   describe("localeday()", () => {
     it("returns full weekday in English", () => {
       WEEKDAYS_LONG_EN.forEach((d, i) => {
-        expect(localeday(i, "en")).toBe(d);
+        expect(localeday(i + 1, "en")).toBe(d);
       });
     });
 
     it("returns full weekday in Nepali", () => {
       WEEKDAYS_LONG_NP.forEach((d, i) => {
-        expect(localeday(i, "np")).toBe(d);
+        expect(localeday(i + 1, "np")).toBe(d);
       });
     });
 
     it("wraps negative numbers correctly", () => {
-      expect(localeday(-2, "np")).toBe(WEEKDAYS_LONG_NP[5]);
+      expect(localeday(-2, "np")).toBe(WEEKDAYS_LONG_NP[4]);
     });
   });
 });

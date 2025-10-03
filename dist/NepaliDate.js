@@ -58,22 +58,22 @@ export default class NepaliDate {
             second: this._second,
         };
     }
-    toArray(withTime = true, withoutSecond = false, withdayofWeek = false) {
-        const date = {};
-        date["year"] = localenumber(this._year, this._locale);
-        date["month"] = localenumber(this._month, this._locale);
-        date["day"] = localenumber(this._day, this._locale);
-        if (withdayofWeek) {
-            date["dayOfWeek"] = localenumber(this._dayOfWeek, this._locale);
+    toArray(withTime = true, withoutSecond = false, withDayOfWeek = false) {
+        const arr = [];
+        arr.push(localenumber(this._year, this._locale));
+        arr.push(localenumber(this._month, this._locale));
+        arr.push(localenumber(this._day, this._locale));
+        if (withDayOfWeek) {
+            arr.push(localenumber(this._dayOfWeek, this._locale));
         }
         if (withTime) {
-            date["hour"] = localenumber(this._hour, this._locale);
-            date["minute"] = localenumber(this._minute, this._locale);
+            arr.push(localenumber(this._hour, this._locale));
+            arr.push(localenumber(this._minute, this._locale));
             if (!withoutSecond) {
-                date["second"] = localenumber(this._second, this._locale);
+                arr.push(localenumber(this._second, this._locale));
             }
         }
-        return date;
+        return arr;
     }
     toAd() {
         const [year, month, day, _] = BStoAD(this._year, this._month, this._day);
@@ -222,6 +222,10 @@ export default class NepaliDate {
                 [year, month, day, dayOfWeek] = calculateAddMonths(year, month, day, dayOfWeek, value);
                 break;
             }
+            case "week": {
+                [year, month, day, dayOfWeek] = calculateAddDays(year, month, day, dayOfWeek, value * 7);
+                break;
+            }
             case "day": {
                 [year, month, day, dayOfWeek] = calculateAddDays(year, month, day, dayOfWeek, value);
                 break;
@@ -272,6 +276,10 @@ export default class NepaliDate {
             }
             case "month": {
                 [year, month, day, dayOfWeek] = calculateSubMonths(year, month, day, dayOfWeek, value);
+                break;
+            }
+            case "week": {
+                [year, month, day, dayOfWeek] = calculateSubDays(year, month, day, dayOfWeek, value * 7);
                 break;
             }
             case "day": {
