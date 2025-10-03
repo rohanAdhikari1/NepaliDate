@@ -60,7 +60,7 @@ export default class NepaliDate {
     const [year, month, day, dayOfWeek] = ADtoBS(
       date.getFullYear(),
       date.getMonth() + 1,
-      date.getDate(),
+      date.getDate()
     );
     const hour = date.getHours();
     const minute = date.getMinutes();
@@ -108,23 +108,27 @@ export default class NepaliDate {
   toArray(
     withTime = true,
     withoutSecond = false,
-    withdayofWeek = false,
-  ): Record<string, string | number> {
-    const date: Record<string, string | number> = {};
-    date["year"] = localenumber(this._year, this._locale);
-    date["month"] = localenumber(this._month, this._locale);
-    date["day"] = localenumber(this._day, this._locale);
-    if (withdayofWeek) {
-      date["dayOfWeek"] = localenumber(this._dayOfWeek, this._locale);
+    withDayOfWeek = false
+  ): Array<string | number> {
+    const arr: Array<string | number> = [];
+
+    arr.push(localenumber(this._year, this._locale));
+    arr.push(localenumber(this._month, this._locale));
+    arr.push(localenumber(this._day, this._locale));
+
+    if (withDayOfWeek) {
+      arr.push(localenumber(this._dayOfWeek, this._locale));
     }
+
     if (withTime) {
-      date["hour"] = localenumber(this._hour, this._locale);
-      date["minute"] = localenumber(this._minute, this._locale);
+      arr.push(localenumber(this._hour, this._locale));
+      arr.push(localenumber(this._minute, this._locale));
       if (!withoutSecond) {
-        date["second"] = localenumber(this._second, this._locale);
+        arr.push(localenumber(this._second, this._locale));
       }
     }
-    return date;
+
+    return arr;
   }
 
   toAd(): Date {
@@ -135,7 +139,7 @@ export default class NepaliDate {
       day,
       this._hour,
       this._minute,
-      this._second,
+      this._second
     );
   }
 
@@ -295,7 +299,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value,
+          value
         );
         break;
       }
@@ -306,7 +310,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value,
+          value
         );
         break;
       }
@@ -317,7 +321,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value*7,
+          value * 7
         );
         break;
       }
@@ -328,7 +332,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value,
+          value
         );
         break;
       }
@@ -342,7 +346,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1,
+            1
           );
         }
         while (hour < 0) {
@@ -352,7 +356,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            -1,
+            -1
           );
         }
         break;
@@ -375,7 +379,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1,
+            1
           );
         }
         while (hour < 0) {
@@ -385,7 +389,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            -1,
+            -1
           );
         }
         break;
@@ -408,7 +412,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value,
+          value
         );
         break;
       }
@@ -419,7 +423,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value,
+          value
         );
         break;
       }
@@ -430,7 +434,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value*7,
+          value * 7
         );
         break;
       }
@@ -441,7 +445,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value,
+          value
         );
         break;
       }
@@ -455,7 +459,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1,
+            1
           );
         }
         break;
@@ -474,7 +478,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1,
+            1
           );
         }
         break;
@@ -502,7 +506,7 @@ export default class NepaliDate {
   addDays(days: number): this {
     if (!Number.isFinite(days)) {
       throw new Error(
-        `Invalid argument: days must be a finite number, received ${days}`,
+        `Invalid argument: days must be a finite number, received ${days}`
       );
     }
     [this._year, this._month, this._day, this._dayOfWeek] = calculateAddDays(
@@ -510,7 +514,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      days,
+      days
     );
     return this;
   }
@@ -528,7 +532,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      months,
+      months
     );
     return this;
   }
@@ -546,7 +550,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      years,
+      years
     );
     return this;
   }
@@ -564,7 +568,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      days,
+      days
     );
     return this;
   }
@@ -582,7 +586,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      months,
+      months
     );
     return this;
   }
@@ -600,7 +604,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      years,
+      years
     );
     return this;
   }
@@ -618,7 +622,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      weeks * 7,
+      weeks * 7
     );
     return this;
   }
@@ -636,7 +640,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      weeks * 7,
+      weeks * 7
     );
     return this;
   }
