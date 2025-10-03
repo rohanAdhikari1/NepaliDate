@@ -242,7 +242,7 @@ console.log(date.toAd());
 
 date.format(); // "2082-06-16" (default)
 date.format("DD/MM/YYYY"); // "16/06/2082"
-date.locale("np").format("MMMM D, YYYY"); // "आश्विन १६, २०८२"
+date.setLocale("np").format("MMMM D, YYYY"); // "आश्विन १६, २०८२"
 ```
 
 ---
@@ -260,7 +260,7 @@ These methods modify the existing object rather than creating a new one.
 | `setHour(hour: number)`     | `hour: number`   | Sets the hour (0–23) in the current instance.                  |
 | `setMinute(minute: number)` | `minute: number` | Sets the minute (0–59) in the current instance.                |
 | `setSecond(second: number)` | `second: number` | Sets the second (0–59) in the current instance.                |
-| `locale(value: string)`     | `value: string`  | Updates the locale (`"np"` or `"en"`) in the current instance. |
+| `setLocale(value: string)`  | `value: string`  | Updates the locale (`"np"` or `"en"`) in the current instance. |
 
 ---
 
@@ -272,7 +272,7 @@ Getter methods **retrieve values** from the current `NepaliDate` instance withou
 | --------------- | ---------- | -------- | ------------------------------------------------------- |
 | `dayOfWeek()`   | None       | `number` | Returns the day of the week (0–6).                      |
 | `daysInMonth()` | None       | `number` | Returns the number of days in the current Nepali month. |
-| `locale()`      | None       | `string` | Returns the current locale.                             |
+| `getLocale()`   | None       | `string` | Returns the current locale.                             |
 
 ---
 

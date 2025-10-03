@@ -17,7 +17,8 @@ export default class NepaliDate {
     toAd(): Date;
     format(format?: string): string;
     toString(): string;
-    locale(value?: string): string | this;
+    setLocale(value?: string): this;
+    getLocale(): string;
     isBefore(date: string | NepaliDate): boolean;
     isAfter(date: string | NepaliDate): boolean;
     isSame(date: string | NepaliDate): boolean;

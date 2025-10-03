@@ -220,5 +220,5 @@ export const WEEKDAYS_LONG_NP = [
     "शुक्रबार",
     "शनिबार",
 ];
-export const REGEX_PARSE = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[Tt\s]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?[.:]?(\d+)?$/;
+export const REGEX_PARSE = /^(\d{1,4})[-/]?(\d{1,2})[-/]?(\d{1,4})(?:[Tt\s](\d{1,2}):?(\d{1,2}):?(\d{1,2}))?$/;
 //# sourceMappingURL=constant.js.map

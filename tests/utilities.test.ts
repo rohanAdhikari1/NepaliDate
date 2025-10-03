@@ -1,4 +1,5 @@
 import { LEAP_MONTHS, NORMAL_MONTHS } from "../src/constant";
+import NepaliDate from "../src/NepaliDate";
 import {
   getDaysInBSMonth,
   getDaysInADMonth,
@@ -6,6 +7,7 @@ import {
   isLeapYear,
   convertToDigit,
   calculateDayofWeek,
+  compareDates,
 } from "../src/utilities";
 
 describe("Date Utilities", () => {
@@ -66,26 +68,26 @@ describe("Date Utilities", () => {
     });
   });
 
-  //   describe("compareDates()", () => {
-  //     const d1: Partial<NepaliDate> = { year: 2078, month: 1, day: 1 };
-  //     const d2: Partial<NepaliDate> = { year: 2078, month: 1, day: 2 };
+    describe("compareDates()", () => {
+      const d1 = new NepaliDate({ year: 2078, month: 1, day: 1 });
+      const d2 = new NepaliDate({ year: 2078, month: 1, day: 2 });
 
-  //     it("returns -1 if date1 < date2", () => {
-  //       expect(compareDates(d1 as NepaliDate, d2 as NepaliDate)).toBe(-1);
-  //     });
+      it("returns -1 if date1 < date2", () => {
+        expect(compareDates(d1, d2)).toBe(-1);
+      });
 
-  //     it("returns 1 if date1 > date2", () => {
-  //       expect(compareDates(d2 as NepaliDate, d1 as NepaliDate)).toBe(1);
-  //     });
+      it("returns 1 if date1 > date2", () => {
+        expect(compareDates(d2, d1)).toBe(1);
+      });
 
-  //     it("returns 0 if dates are equal", () => {
-  //       expect(compareDates(d1 as NepaliDate, d1 as NepaliDate)).toBe(0);
-  //     });
+      it("returns 0 if dates are equal", () => {
+        expect(compareDates(d1, d1)).toBe(0);
+      });
 
-  //     it("considers hour and minute if withTime=true", () => {
-  //       const d3: any = { ...d1, hour: 5, minute: 0 };
-  //       const d4: any = { ...d1, hour: 6, minute: 0 };
-  //       expect(compareDates(d3 as NepaliDate, d4 as NepaliDate, true)).toBe(-1);
-  //     });
-  //   });
+      it("considers hour and minute if withTime=true", () => {
+        const d3 = new NepaliDate({ ...d1.toObject(), hour: 5, minute: 0 });
+        const d4 = new NepaliDate({ ...d1.toObject(), hour: 6, minute: 0 });
+        expect(compareDates(d3, d4, true)).toBe(-1);
+      });
+    });
 });

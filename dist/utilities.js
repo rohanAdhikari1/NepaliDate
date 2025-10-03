@@ -87,17 +87,29 @@ export const convertToDigit = (nums) => {
  *   0 if date1 === date2
  */
 export const compareDates = (date1, date2, withTime = false) => {
-    const fields = ["year", "month", "day"];
-    if (withTime)
-        fields.push("hour", "minute");
-    for (const field of fields) {
-        const a = date1[field] ?? 0;
-        const b = date2[field] ?? 0;
-        if (a > b)
-            return 1; // date1 is after
-        if (a < b)
-            return -1; // date1 is before
+    if (date1.year() > date2.year())
+        return 1;
+    if (date1.year() < date2.year())
+        return -1;
+    if (date1.month() > date2.month())
+        return 1;
+    if (date1.month() < date2.month())
+        return -1;
+    if (date1.day() > date2.day())
+        return 1;
+    if (date1.day() < date2.day())
+        return -1;
+    // Compare hour and minute if withTime is true
+    if (withTime) {
+        if (date1.hour() > date2.hour())
+            return 1;
+        if (date1.hour() < date2.hour())
+            return -1;
+        if (date1.minute() > date2.minute())
+            return 1;
+        if (date1.minute() < date2.minute())
+            return -1;
     }
-    return 0; // equal
+    return 0; // Dates are equal
 };
 //# sourceMappingURL=utilities.js.map

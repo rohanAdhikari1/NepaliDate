@@ -151,15 +151,16 @@ export default class NepaliDate {
     return this.format("YYYY-MM-DD HH:mm:ss A");
   }
 
-  locale(value?: string): string | this {
-    if (value === undefined) {
-      return this._locale;
-    }
+  setLocale(value?: string): this {
     if (typeof value !== "string") {
       throw new Error(`Invalid locale: ${value}. Locale must be a string.`);
     }
     this._locale = value === "np" ? "np" : "en";
     return this;
+  }
+
+  getLocale(): string {
+    return this._locale;
   }
 
   isBefore(date: string | NepaliDate): boolean {

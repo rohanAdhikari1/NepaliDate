@@ -1,7 +1,7 @@
 import { BASE_YEAR_AD, BASE_YEAR_BS, NEPALI_DATE_MAP } from "./constant";
 import { getDaysInBSMonth, getDaysInADMonth } from "./utilities";
 export const validateHour = (hour) => {
-    if (hour > 24 && hour < 0) {
+    if (hour > 24 || hour < 0) {
         return false;
     }
     return true;

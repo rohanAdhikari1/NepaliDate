@@ -18,10 +18,14 @@ describe("nepalidayjs core functionality", () => {
     expect(d.year()).toBe(2082);
   });
 
-  it("should accept a NepaliDate instance directly", () => {
+  it("should accept a NepaliDate instance directly and deep copy it", () => {
     const d = new NepaliDate({ year: 2082, month: 6, day: 15 });
     const result = nepalidayjs(d);
-    expect(result).toBe(d);
+    expect(result).not.toBe(d);
+
+    expect(result.year()).toBe(d.year());
+    expect(result.month()).toBe(d.month());
+    expect(result.day()).toBe(d.day());
   });
 
   it("should create NepaliDate from Date", () => {
