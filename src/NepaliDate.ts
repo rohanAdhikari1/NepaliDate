@@ -387,6 +387,84 @@ export default class NepaliDate {
     return new NepaliDate({ year, month, day, hour, minute, dayOfWeek });
   }
 
+  subtract(value: number, unit: DateUnits): NepaliDate {
+    let { year, month, day, hour, minute, dayOfWeek } = this.toObject();
+
+    switch (unit) {
+      case "year": {
+        [year, month, day, dayOfWeek] = calculateSubYears(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value
+        );
+        break;
+      }
+
+      case "month": {
+        [year, month, day, dayOfWeek] = calculateSubMonths(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value
+        );
+        break;
+      }
+
+      case "day": {
+        [year, month, day, dayOfWeek] = calculateSubDays(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value
+        );
+        break;
+      }
+
+      case "hour": {
+        hour -= value;
+        while (hour < 0) {
+          hour += 24;
+          [year, month, day, dayOfWeek] = calculateSubDays(
+            year,
+            month,
+            day,
+            dayOfWeek,
+            1
+          );
+        }
+        break;
+      }
+
+      case "minute": {
+        minute -= value;
+        while (minute < 0) {
+          minute += 60;
+          hour -= 1;
+        }
+        while (hour < 0) {
+          hour += 24;
+          [year, month, day, dayOfWeek] = calculateSubDays(
+            year,
+            month,
+            day,
+            dayOfWeek,
+            1
+          );
+        }
+        break;
+      }
+
+      default:
+        throw new Error(`Unsupported unit: ${unit}`);
+    }
+
+    return new NepaliDate({ year, month, day, hour, minute, dayOfWeek });
+  }
+
   addDay(): this {
     return this.addDays(1);
   }
