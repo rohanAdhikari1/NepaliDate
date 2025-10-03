@@ -1,6 +1,5 @@
-import { REGEX_PARSE } from './constant';
-export function parseWithFormat(date, format) {
-}
+import { REGEX_PARSE } from "./constant";
+export function parseWithFormat(date, format) { }
 export function parseWithOutFormat(date) {
     const match = REGEX_PARSE.exec(date);
     if (!match)

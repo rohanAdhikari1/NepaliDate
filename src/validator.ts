@@ -14,10 +14,7 @@ export const validateMinuteSecond = (value: number): boolean => {
 };
 
 export const validateBsYear = (year: number) => {
-  if (
-    year < BASE_YEAR_BS ||
-    year > BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1
-  ) {
+  if (year < BASE_YEAR_BS || year > BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1) {
     return false;
   }
   return true;
@@ -33,7 +30,7 @@ export const validateMonth = (month: number): boolean => {
 export const validateBsDay = (
   year: number,
   month: number,
-  day: number
+  day: number,
 ): boolean => {
   const maxDays = getDaysInBSMonth(year, month);
   if (day < 1 || day > maxDays) {
@@ -43,14 +40,11 @@ export const validateBsDay = (
 };
 
 export const validateAD = (year: number, month: number, day: number) => {
-  if (
-    year < BASE_YEAR_AD ||
-    year > BASE_YEAR_AD + NEPALI_DATE_MAP.length - 1
-  ) {
+  if (year < BASE_YEAR_AD || year > BASE_YEAR_AD + NEPALI_DATE_MAP.length - 1) {
     throw new Error(
       `Supported AD years: ${BASE_YEAR_AD}-${
         BASE_YEAR_AD + NEPALI_DATE_MAP.length - 1
-      }`
+      }`,
     );
   }
 
@@ -69,7 +63,7 @@ export const validateBS = (year: number, month: number, day: number) => {
     throw new Error(
       `Supported BS years: ${BASE_YEAR_BS}-${
         BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1
-      }`
+      }`,
     );
   }
   if (!validateMonth(month)) {

@@ -27,7 +27,7 @@ describe("Utilities - Localization", () => {
     it("calls convertToUnicode and returns Nepali number string when locale is 'np'", () => {
       expect(localenumber(789, "np")).toBe("७८९");
       expect(localenumber("1011", "np")).toBe("१०११");
-       expect(localenumber("1011-excepthis", "np")).toBe("१०११-excepthis");
+      expect(localenumber("1011-excepthis", "np")).toBe("१०११-excepthis");
     });
   });
 

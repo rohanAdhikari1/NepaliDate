@@ -1,10 +1,10 @@
-import { NEPALI_DATE_MAP, NORMAL_MONTHS, LEAP_MONTHS, NUM_NP, START_WEEK_DAY_BS, BASE_YEAR_BS, BASE_YEAR_AD } from "./constant";
+import { NEPALI_DATE_MAP, NORMAL_MONTHS, LEAP_MONTHS, NUM_NP, BASE_YEAR_BS, BASE_YEAR_AD, START_WEEK_DAY_AD, } from "./constant";
 /**
  * Calculate day of week for a BS date.
  */
 export const calculateDayofWeek = (year, month, day) => {
     const totalDays = getTotalBSDays(year, month, day);
-    let dayOfWeek = START_WEEK_DAY_BS;
+    let dayOfWeek = START_WEEK_DAY_AD;
     dayOfWeek = ((dayOfWeek + totalDays - 1) % 7) + 1;
     return dayOfWeek;
 };

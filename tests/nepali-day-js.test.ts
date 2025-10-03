@@ -34,7 +34,7 @@ describe("nepalidayjs core functionality", () => {
   it("should create NepaliDate from ISO string", () => {
     const nd = nepalidayjs.fromAd("2020-01-01");
     expect(nd).toBeInstanceOf(NepaliDate);
-     expect(nd.year()).toBe(2076);
+    expect(nd.year()).toBe(2076);
   });
 
   it("should throw for invalid inputs", () => {
@@ -91,7 +91,7 @@ describe("Validation", () => {
 
   it("should throw for string validation (not supported yet)", () => {
     expect(() => nepalidayjs.isValid("2020-01-01")).toThrow(
-      "Feature Not Available in current version"
+      "Feature Not Available in current version",
     );
   });
 });

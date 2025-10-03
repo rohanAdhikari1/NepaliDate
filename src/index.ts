@@ -73,18 +73,28 @@ nepalidayjs.monthsShort = function (locale = "en") {
   return locale === "np" ? MONTHS_SHORT_NP : MONTHS_SHORT_EN;
 };
 
-nepalidayjs.minDate = function (locale:Locale = "en") {
-  const minDate = new NepaliDate({year:BASE_YEAR_BS,month:1,day:1,locale:locale});
-  if(!minDate.isValid()){
+nepalidayjs.minDate = function (locale: Locale = "en") {
+  const minDate = new NepaliDate({
+    year: BASE_YEAR_BS,
+    month: 1,
+    day: 1,
+    locale: locale,
+  });
+  if (!minDate.isValid()) {
     throw new Error("Error on retriving Min Date");
   }
   return minDate;
 };
 
-nepalidayjs.maxDate = function (locale:Locale = "en") {
-  const year = BASE_YEAR_BS+NEPALI_DATE_MAP.length-1;
-  const maxDate = new NepaliDate({year:year,month:12,day:getDaysInBSMonth(year,12),locale:locale});
-  if(!maxDate.isValid()){
+nepalidayjs.maxDate = function (locale: Locale = "en") {
+  const year = BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1;
+  const maxDate = new NepaliDate({
+    year: year,
+    month: 12,
+    day: getDaysInBSMonth(year, 12),
+    locale: locale,
+  });
+  if (!maxDate.isValid()) {
     throw new Error("Error on retriving Max Date");
   }
   return maxDate;
@@ -95,7 +105,7 @@ nepalidayjs.minYear = function () {
 };
 
 nepalidayjs.maxYear = function () {
-  const year = BASE_YEAR_BS+NEPALI_DATE_MAP.length-1;
+  const year = BASE_YEAR_BS + NEPALI_DATE_MAP.length - 1;
   return year;
 };
 

@@ -1,4 +1,5 @@
 export type Locale = "en" | "np";
+export type DateUnits = "year" | "month" | "day" | "hour" | "minute" | "second";
 export interface NepaliDateProps {
     year: number;
     month: number;

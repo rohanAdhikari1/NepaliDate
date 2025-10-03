@@ -211,6 +211,106 @@ export default class NepaliDate {
         this._second = second;
         return this;
     }
+    add(value, unit) {
+        let { year, month, day, hour, minute, dayOfWeek } = this.toObject();
+        switch (unit) {
+            case "year": {
+                [year, month, day, dayOfWeek] = calculateAddYears(year, month, day, dayOfWeek, value);
+                break;
+            }
+            case "month": {
+                [year, month, day, dayOfWeek] = calculateAddMonths(year, month, day, dayOfWeek, value);
+                break;
+            }
+            case "day": {
+                [year, month, day, dayOfWeek] = calculateAddDays(year, month, day, dayOfWeek, value);
+                break;
+            }
+            case "hour": {
+                hour += value;
+                while (hour >= 24) {
+                    hour -= 24;
+                    [year, month, day, dayOfWeek] = calculateAddDays(year, month, day, dayOfWeek, 1);
+                }
+                while (hour < 0) {
+                    hour += 24;
+                    [year, month, day, dayOfWeek] = calculateAddDays(year, month, day, dayOfWeek, -1);
+                }
+                break;
+            }
+            case "minute": {
+                minute += value;
+                while (minute >= 60) {
+                    minute -= 60;
+                    hour += 1;
+                }
+                while (minute < 0) {
+                    minute += 60;
+                    hour -= 1;
+                }
+                while (hour >= 24) {
+                    hour -= 24;
+                    [year, month, day, dayOfWeek] = calculateAddDays(year, month, day, dayOfWeek, 1);
+                }
+                while (hour < 0) {
+                    hour += 24;
+                    [year, month, day, dayOfWeek] = calculateAddDays(year, month, day, dayOfWeek, -1);
+                }
+                break;
+            }
+            default:
+                throw new Error(`Unsupported unit: ${unit}`);
+        }
+        return new NepaliDate({ year, month, day, hour, minute, dayOfWeek });
+    }
+    subtract(value, unit) {
+        let { year, month, day, dayOfWeek, hour, minute, second } = this.toObject();
+        switch (unit) {
+            case "year": {
+                [year, month, day, dayOfWeek] = calculateSubYears(year, month, day, dayOfWeek, value);
+                break;
+            }
+            case "month": {
+                [year, month, day, dayOfWeek] = calculateSubMonths(year, month, day, dayOfWeek, value);
+                break;
+            }
+            case "day": {
+                [year, month, day, dayOfWeek] = calculateSubDays(year, month, day, dayOfWeek, value);
+                break;
+            }
+            case "hour": {
+                hour -= value;
+                while (hour < 0) {
+                    hour += 24;
+                    [year, month, day, dayOfWeek] = calculateSubDays(year, month, day, dayOfWeek, 1);
+                }
+                break;
+            }
+            case "minute": {
+                minute -= value;
+                while (minute < 0) {
+                    minute += 60;
+                    hour -= 1;
+                }
+                while (hour < 0) {
+                    hour += 24;
+                    [year, month, day, dayOfWeek] = calculateSubDays(year, month, day, dayOfWeek, 1);
+                }
+                break;
+            }
+            default:
+                throw new Error(`Unsupported unit: ${unit}`);
+        }
+        return new NepaliDate({
+            year,
+            month,
+            day,
+            dayOfWeek,
+            hour,
+            minute,
+            second,
+        });
+    }
     addDay() {
         return this.addDays(1);
     }

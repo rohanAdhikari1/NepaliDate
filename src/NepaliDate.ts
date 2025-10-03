@@ -60,7 +60,7 @@ export default class NepaliDate {
     const [year, month, day, dayOfWeek] = ADtoBS(
       date.getFullYear(),
       date.getMonth() + 1,
-      date.getDate()
+      date.getDate(),
     );
     const hour = date.getHours();
     const minute = date.getMinutes();
@@ -108,7 +108,7 @@ export default class NepaliDate {
   toArray(
     withTime = true,
     withoutSecond = false,
-    withdayofWeek = false
+    withdayofWeek = false,
   ): Record<string, string | number> {
     const date: Record<string, string | number> = {};
     date["year"] = localenumber(this._year, this._locale);
@@ -135,7 +135,7 @@ export default class NepaliDate {
       day,
       this._hour,
       this._minute,
-      this._second
+      this._second,
     );
   }
 
@@ -295,7 +295,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value
+          value,
         );
         break;
       }
@@ -306,7 +306,18 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value
+          value,
+        );
+        break;
+      }
+
+      case "week": {
+        [year, month, day, dayOfWeek] = calculateAddDays(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value*7,
         );
         break;
       }
@@ -317,7 +328,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value
+          value,
         );
         break;
       }
@@ -331,7 +342,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1
+            1,
           );
         }
         while (hour < 0) {
@@ -341,7 +352,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            -1
+            -1,
           );
         }
         break;
@@ -364,7 +375,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1
+            1,
           );
         }
         while (hour < 0) {
@@ -374,7 +385,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            -1
+            -1,
           );
         }
         break;
@@ -388,7 +399,7 @@ export default class NepaliDate {
   }
 
   subtract(value: number, unit: DateUnits): NepaliDate {
-    let { year, month, day, hour, minute, dayOfWeek } = this.toObject();
+    let { year, month, day, dayOfWeek, hour, minute, second } = this.toObject();
 
     switch (unit) {
       case "year": {
@@ -397,7 +408,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value
+          value,
         );
         break;
       }
@@ -408,7 +419,18 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value
+          value,
+        );
+        break;
+      }
+
+      case "week": {
+        [year, month, day, dayOfWeek] = calculateSubDays(
+          year,
+          month,
+          day,
+          dayOfWeek,
+          value*7,
         );
         break;
       }
@@ -419,7 +441,7 @@ export default class NepaliDate {
           month,
           day,
           dayOfWeek,
-          value
+          value,
         );
         break;
       }
@@ -433,7 +455,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1
+            1,
           );
         }
         break;
@@ -452,7 +474,7 @@ export default class NepaliDate {
             month,
             day,
             dayOfWeek,
-            1
+            1,
           );
         }
         break;
@@ -462,7 +484,15 @@ export default class NepaliDate {
         throw new Error(`Unsupported unit: ${unit}`);
     }
 
-    return new NepaliDate({ year, month, day, hour, minute, dayOfWeek });
+    return new NepaliDate({
+      year,
+      month,
+      day,
+      dayOfWeek,
+      hour,
+      minute,
+      second,
+    });
   }
 
   addDay(): this {
@@ -472,7 +502,7 @@ export default class NepaliDate {
   addDays(days: number): this {
     if (!Number.isFinite(days)) {
       throw new Error(
-        `Invalid argument: days must be a finite number, received ${days}`
+        `Invalid argument: days must be a finite number, received ${days}`,
       );
     }
     [this._year, this._month, this._day, this._dayOfWeek] = calculateAddDays(
@@ -480,7 +510,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      days
+      days,
     );
     return this;
   }
@@ -498,7 +528,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      months
+      months,
     );
     return this;
   }
@@ -516,7 +546,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      years
+      years,
     );
     return this;
   }
@@ -534,7 +564,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      days
+      days,
     );
     return this;
   }
@@ -552,7 +582,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      months
+      months,
     );
     return this;
   }
@@ -570,7 +600,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      years
+      years,
     );
     return this;
   }
@@ -588,7 +618,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      weeks * 7
+      weeks * 7,
     );
     return this;
   }
@@ -606,7 +636,7 @@ export default class NepaliDate {
       this._month,
       this._day,
       this._dayOfWeek,
-      weeks * 7
+      weeks * 7,
     );
     return this;
   }

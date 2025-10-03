@@ -1,7 +1,7 @@
 import { localenumber, localeShortMonth, localeMonth, localeShortday, localeday, } from "./locale";
 export default function format(dateobj, stringFormat, locale = "en") {
     const pad = (num, size = 2) => String(num).padStart(size, "0");
-    const to12Hour = (hour) => (hour % 12) || 12;
+    const to12Hour = (hour) => hour % 12 || 12;
     return stringFormat
         .replace(/((\\[MDYdHhmsa])|D{1,2}|M{1,4}|Y{2,4}|d{1,3}|H{1,2}|h{1,2}|m{1,2}|s{1,2}|A)/g, (match, _, matchedString) => {
         switch (match) {

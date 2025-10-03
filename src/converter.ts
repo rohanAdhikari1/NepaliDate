@@ -19,11 +19,14 @@ import {
   getTotalBSDays,
 } from "./utilities";
 
-import { validateBS,validateAD } from "./validator";
-
+import { validateBS, validateAD } from "./validator";
 
 // Conversion Functions
-export const ADtoBS = (year: number, month: number, day: number) : [number, number, number, number]=> {
+export const ADtoBS = (
+  year: number,
+  month: number,
+  day: number,
+): [number, number, number, number] => {
   validateAD(year, month, day);
 
   let totalAdDays = getTotalADDays(year, month, day);
@@ -60,7 +63,11 @@ export const ADtoBS = (year: number, month: number, day: number) : [number, numb
   return [bsYear, bsMonth, bsDay, dayOfWeek];
 };
 
-export const BStoAD = (year: number, month: number, day: number): [number, number, number, number] => {
+export const BStoAD = (
+  year: number,
+  month: number,
+  day: number,
+): [number, number, number, number] => {
   validateBS(year, month, day);
 
   let totalBsDays = getTotalBSDays(year, month, day);
@@ -89,7 +96,13 @@ export const BStoAD = (year: number, month: number, day: number): [number, numbe
   return [adYear, adMonth, adDay, dayOfWeek];
 };
 
-export const calculateAddDays = (year: number, month: number, day: number, dayOfWeek: number, days: number): [number, number, number, number] => {
+export const calculateAddDays = (
+  year: number,
+  month: number,
+  day: number,
+  dayOfWeek: number,
+  days: number,
+): [number, number, number, number] => {
   validateBS(year, month, day);
   while (days > 0) {
     const daysInMonth = getDaysInBSMonth(year, month);
@@ -113,7 +126,13 @@ export const calculateAddDays = (year: number, month: number, day: number, dayOf
   return [year, month, day, dayOfWeek];
 };
 
-export const calculateAddMonths = (year: number, month: number, day: number, dayOfWeek: number, months: number): [number, number, number, number] => {
+export const calculateAddMonths = (
+  year: number,
+  month: number,
+  day: number,
+  dayOfWeek: number,
+  months: number,
+): [number, number, number, number] => {
   validateBS(year, month, day);
   let totalDays = 0;
   for (let i = 0; i < months; i++) {
@@ -131,7 +150,13 @@ export const calculateAddMonths = (year: number, month: number, day: number, day
   return [year, month, day, dayOfWeek];
 };
 
-export const calculateAddYears = (year: number, month: number, day: number, dayOfWeek: number, years: number): [number, number, number, number] => {
+export const calculateAddYears = (
+  year: number,
+  month: number,
+  day: number,
+  dayOfWeek: number,
+  years: number,
+): [number, number, number, number] => {
   validateBS(year, month, day);
   let totalDays = 0;
   let yearIndex = year - BASE_YEAR_BS;
@@ -143,10 +168,16 @@ export const calculateAddYears = (year: number, month: number, day: number, dayO
   dayOfWeek = ((dayOfWeek + totalDays - 1) % 7) + 1;
   const newYearDays = getDaysInBSMonth(year, month);
   if (day > newYearDays) day = newYearDays;
- return [year, month, day, dayOfWeek];
+  return [year, month, day, dayOfWeek];
 };
 
-export const calculateSubDays = (year: number, month: number, day: number, dayOfWeek: number, days: number): [number, number, number, number] => {
+export const calculateSubDays = (
+  year: number,
+  month: number,
+  day: number,
+  dayOfWeek: number,
+  days: number,
+): [number, number, number, number] => {
   validateBS(year, month, day);
   while (days > 0) {
     if (day > days) {
@@ -168,7 +199,13 @@ export const calculateSubDays = (year: number, month: number, day: number, dayOf
   return [year, month, day, dayOfWeek];
 };
 
-export const calculateSubMonths = (year: number, month: number, day: number, dayOfWeek: number, months: number): [number, number, number, number] => {
+export const calculateSubMonths = (
+  year: number,
+  month: number,
+  day: number,
+  dayOfWeek: number,
+  months: number,
+): [number, number, number, number] => {
   validateBS(year, month, day);
   let totalDays = 0;
   for (let i = 0; i < months; i++) {
@@ -185,7 +222,13 @@ export const calculateSubMonths = (year: number, month: number, day: number, day
   return [year, month, day, dayOfWeek];
 };
 
-export const calculateSubYears = (year: number, month: number, day: number, dayOfWeek: number, years: number): [number, number, number, number] => {
+export const calculateSubYears = (
+  year: number,
+  month: number,
+  day: number,
+  dayOfWeek: number,
+  years: number,
+): [number, number, number, number] => {
   validateBS(year, month, day);
   let totalDays = 0;
   let yearIndex = year - BASE_YEAR_BS;
@@ -197,7 +240,7 @@ export const calculateSubYears = (year: number, month: number, day: number, dayO
   dayOfWeek = ((dayOfWeek - totalDays - 1 + 7) % 7) + 1;
   const newYearDays = getDaysInBSMonth(year, month);
   if (day > newYearDays) day = newYearDays;
- return [year, month, day, dayOfWeek];
+  return [year, month, day, dayOfWeek];
 };
 
-export const calculateAddSecond = () => { };
+export const calculateAddSecond = () => {};

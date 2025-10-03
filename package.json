@@ -27,12 +27,15 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "format": "prettier --write src/**/*.ts tests/**/*.ts",
+    "prepare": "npm run build && npm run format"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^24.6.0",
     "jest": "^30.2.0",
+    "prettier": "^3.6.2",
     "ts-jest": "^29.4.4",
     "typescript": "^5.9.3"
   }

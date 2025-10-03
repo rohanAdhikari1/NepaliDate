@@ -110,8 +110,12 @@ export const NEPALI_DATE_MAP = [
     [2098, 31, 31, 32, 31, 31, 31, 29, 30, 29, 30, 29, 31],
     [2099, 31, 31, 32, 31, 31, 31, 30, 29, 29, 30, 30, 30],
 ];
-export const NORMAL_MONTHS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-export const LEAP_MONTHS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const NORMAL_MONTHS = [
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+];
+export const LEAP_MONTHS = [
+    31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+];
 export const MONTHS_EN = [
     "Baisakh",
     "Jestha",
@@ -168,7 +172,18 @@ export const MONTHS_SHORT_NP = [
     "फा",
     "चै",
 ];
-export const NUM_NP = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९"];
+export const NUM_NP = [
+    "०",
+    "१",
+    "२",
+    "३",
+    "४",
+    "५",
+    "६",
+    "७",
+    "८",
+    "९",
+];
 export const WEEKDAYS_SHORT_EN = [
     "Sun",
     "Mon",

@@ -5,10 +5,9 @@ import {
   NUM_NP,
   BASE_YEAR_BS,
   BASE_YEAR_AD,
-  START_WEEK_DAY_AD
+  START_WEEK_DAY_AD,
 } from "./constant";
 import type NepaliDate from "./NepaliDate";
-
 
 /**
  * Calculate day of week for a BS date.
@@ -16,7 +15,7 @@ import type NepaliDate from "./NepaliDate";
 export const calculateDayofWeek = (
   year: number,
   month: number,
-  day: number
+  day: number,
 ): number => {
   const totalDays = getTotalBSDays(year, month, day);
   let dayOfWeek = START_WEEK_DAY_AD;
@@ -35,7 +34,8 @@ export const getDaysInBSMonth = (year: number, month: number): number => {
 /**
  * Sum array of numbers
  */
-export const sumArray = (arr: number[]): number => arr.reduce((a, b) => a + b, 0);
+export const sumArray = (arr: number[]): number =>
+  arr.reduce((a, b) => a + b, 0);
 
 /**
  * Check if a year is a leap year
@@ -47,24 +47,34 @@ export const isLeapYear = (year: number): boolean =>
  * Get number of days in AD month
  */
 export const getDaysInADMonth = (year: number, month: number): number =>
-  (isLeapYear(year) ? LEAP_MONTHS[month - 1] : NORMAL_MONTHS[month - 1]) ??0;
+  (isLeapYear(year) ? LEAP_MONTHS[month - 1] : NORMAL_MONTHS[month - 1]) ?? 0;
 
 /**
  * Total days from BASE_YEAR_AD to given AD date
  */
-export const getTotalADDays = (year: number, month: number, day: number): number => {
+export const getTotalADDays = (
+  year: number,
+  month: number,
+  day: number,
+): number => {
   let totalDays = 0;
   for (let y = BASE_YEAR_AD; y < year; y++) {
     totalDays += sumArray(isLeapYear(y) ? LEAP_MONTHS : NORMAL_MONTHS);
   }
-  totalDays += sumArray((isLeapYear(year) ? LEAP_MONTHS : NORMAL_MONTHS).slice(0, month - 1));
+  totalDays += sumArray(
+    (isLeapYear(year) ? LEAP_MONTHS : NORMAL_MONTHS).slice(0, month - 1),
+  );
   return totalDays + day;
 };
 
 /**
  * Total days from BASE_YEAR_BS to given BS date
  */
-export const getTotalBSDays = (year: number, month: number, day: number): number => {
+export const getTotalBSDays = (
+  year: number,
+  month: number,
+  day: number,
+): number => {
   let totalDays = 0;
 
   for (let y = BASE_YEAR_BS; y < year; y++) {
@@ -107,7 +117,6 @@ export const convertToDigit = (nums: string | number): string => {
   return englishStr;
 };
 
-
 /**
  * Compare two Nepali dates.
  * Returns:
@@ -118,7 +127,7 @@ export const convertToDigit = (nums: string | number): string => {
 export const compareDates = (
   date1: NepaliDate,
   date2: NepaliDate,
-  withTime: boolean = false
+  withTime: boolean = false,
 ): number => {
   const fields: (keyof NepaliDate)[] = ["year", "month", "day"];
   if (withTime) fields.push("hour", "minute");
@@ -127,8 +136,8 @@ export const compareDates = (
     const a = date1[field] ?? 0;
     const b = date2[field] ?? 0;
 
-    if (a > b) return 1;   // date1 is after
-    if (a < b) return -1;  // date1 is before
+    if (a > b) return 1; // date1 is after
+    if (a < b) return -1; // date1 is before
   }
 
   return 0; // equal

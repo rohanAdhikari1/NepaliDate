@@ -6,13 +6,17 @@ import {
   localeday,
 } from "./locale";
 
-import type { Locale,NepaliDateObj } from "./types";
+import type { Locale, NepaliDateObj } from "./types";
 
-export default function format(dateobj:NepaliDateObj, stringFormat:string, locale:Locale= "en"):string {
+export default function format(
+  dateobj: NepaliDateObj,
+  stringFormat: string,
+  locale: Locale = "en",
+): string {
   const pad = (num: number | string, size = 2): string =>
     String(num).padStart(size, "0");
 
-  const to12Hour = (hour: number): number => (hour % 12) || 12;
+  const to12Hour = (hour: number): number => hour % 12 || 12;
 
   return stringFormat
     .replace(
@@ -70,7 +74,7 @@ export default function format(dateobj:NepaliDateObj, stringFormat:string, local
           default:
             return matchedString.replace("/", "");
         }
-      }
+      },
     )
     .replace(/\\/g, "");
 }

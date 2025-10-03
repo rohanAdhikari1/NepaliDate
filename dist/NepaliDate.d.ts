@@ -1,4 +1,4 @@
-import type { NepaliDateObj, NepaliDateProps } from "./types";
+import type { DateUnits, NepaliDateObj, NepaliDateProps } from "./types";
 export default class NepaliDate {
     private _year;
     private _month;
@@ -36,6 +36,8 @@ export default class NepaliDate {
     setHour(hour: number): this;
     setMinute(minute: number): this;
     setSecond(second: number): this;
+    add(value: number, unit: DateUnits): NepaliDate;
+    subtract(value: number, unit: DateUnits): NepaliDate;
     addDay(): this;
     addDays(days: number): this;
     addMonth(): this;
