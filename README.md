@@ -71,7 +71,7 @@ const customDate = new NepaliDate({
   month: 6,
   day: 16,
 });
-console.log(customDate.format()); // 2082-06-16 (in Nepali format)
+console.log(customDate.format()); // 2082-06-16
 ```
 
 **Note:**
