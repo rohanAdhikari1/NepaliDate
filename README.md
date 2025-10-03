@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/npm/l/nepali-day-js.svg?color=green)](./LICENSE.md)
 [![types](https://img.shields.io/badge/TypeScript-Ready-blue)](https://www.typescriptlang.org/)
 
-**Nepali Date** is a powerful JavaScript/TypeScript library for working with the **Nepali calendar (Bikram Sambat - BS)**.  
+**Nepali Date** is a JavaScript/TypeScript library for working with the **Nepali calendar (Bikram Sambat - BS)**.  
 It provides seamless conversion between AD (Gregorian) and BS dates, along with flexible utilities for parsing, formatting, localization, and date manipulation.
 
 ---
@@ -71,6 +71,10 @@ const customDate = new NepaliDate({
 });
 console.log(customDate.format()); // 2082-06-16 (in Nepali format)
 ```
+
+**Note:**
+Do not manually pass the `dayOfWeek` unless you are certain it matches the year, month, and day.
+Leaving it blank or null ensures it is calculated correctly.
 
 ## 🔤 Supported String Parsing Formats
 
@@ -196,13 +200,72 @@ console.log(date.toAd());
 // Fri Oct 03 2025 14:30:45 GMT+0545 (Nepal Time)
 ```
 
-**Supported patterns:**
+<!-- **Supported patterns:** -->
 
-## Getter/Setter
+---
+
+## Setter
+
+Setter methods **update the current instance** of `NepaliDate` in place.  
+These methods modify the existing object rather than creating a new one.
+
+| Method                      | Parameters       | Returns | Description                                                    |
+| --------------------------- | ---------------- | ------- | -------------------------------------------------------------- |
+| `setYear(year: number)`     | `year: number`   | `this`  | Sets the year of the current instance.                         |
+| `setMonth(month: number)`   | `month: number`  | `this`  | Sets the month of the current instance.                        |
+| `setDay(day: number)`       | `day: number`    | `this`  | Sets the day of the current instance.                          |
+| `setHour(hour: number)`     | `hour: number`   | `this`  | Sets the hour (0–23) in the current instance.                  |
+| `setMinute(minute: number)` | `minute: number` | `this`  | Sets the minute (0–59) in the current instance.                |
+| `setSecond(second: number)` | `second: number` | `this`  | Sets the second (0–59) in the current instance.                |
+| `locale(value: string)`     | `value: string`  | `this`  | Updates the locale (`"np"` or `"en"`) in the current instance. |
+
+---
+
+## Getter
+
+Getter methods **retrieve values** from the current `NepaliDate` instance without modifying it.
+
+| Method          | Parameters | Returns  | Description                                             |
+| --------------- | ---------- | -------- | ------------------------------------------------------- |
+| `dayOfWeek()`   | None       | `number` | Returns the day of the week (0–6).                      |
+| `daysInMonth()` | None       | `number` | Returns the number of days in the current Nepali month. |
+
+---
+
+## Setter/Getter (Deep Copy)
+
+These methods can act as [**getter**](#getter) or [**setter**](#setter) depending on whether a parameter is provided.  
+When a value is passed, a **new `NepaliDate` instance is returned** with the updated value, leaving the original instance unchanged. This avoids shallow copy issues and preserves immutability.
+
+| Method                    | Parameters        | Returns                  | Description                                                                 |
+| ------------------------- | ----------------- | ------------------------ | --------------------------------------------------------------------------- |
+| `year(year?: number)`     | `year?: number`   | `number` or `NepaliDate` | Gets the current year, or returns a new instance with the updated year.     |
+| `month(month?: number)`   | `month?: number`  | `number` or `NepaliDate` | Gets the current month, or returns a new instance with the updated month.   |
+| `day(day?: number)`       | `day?: number`    | `number` or `NepaliDate` | Gets the current day, or returns a new instance with the updated day.       |
+| `hour(hour?: number)`     | `hour?: number`   | `number` or `NepaliDate` | Gets the current hour, or returns a new instance with the updated hour.     |
+| `minute(minute?: number)` | `minute?: number` | `number` or `NepaliDate` | Gets the current minute, or returns a new instance with the updated minute. |
+| `second(second?: number)` | `second?: number` | `number` or `NepaliDate` | Gets the current second, or returns a new instance with the updated second. |
+| `locale(value?: string)`  | `value?: string`  | `string` or `NepaliDate` | Gets the current locale, or returns a new instance with the updated locale. |
+
+---
+
+### Notes
+
+- **Setter methods** modify the existing object.
+- **Getter methods** only read values and do not modify the object.
+- **Setter/Getter methods** return a **new instance** when a value is provided, preserving the original instance (deep copy).
+
+---
+
+### Example
+
+---
 
 ## Manipulation
 
-TODO:-
+### Example
+
+---
 
 ## Comparison
 
@@ -223,7 +286,42 @@ console.log(date2.isAfter(date1)); // true
 console.log(date1.isSame(date2)); // false
 ```
 
-## Localization functions
+## Localization Functions
+
+These functions help retrieve **months, weekdays, and numbers/strings** according to the provided locale (`en` or `np`).
+
+- `localenumber(num, locale)` → Converts digits (`0–9`) into localized form. Works with both numbers and strings. Other symbols/letters remain unchanged.
+- `localeShortMonth(num, locale)` → Returns short month name.
+- `localeMonth(num, locale)` → Returns full month name.
+- `localeShortday(num, locale)` → Returns short weekday name.
+- `localeday(num, locale)` → Returns full weekday name.
+
+**Examples:**
+
+```ts
+import {
+  localenumber,
+  localeShortMonth,
+  localeMonth,
+  localeShortday,
+  localeday,
+} from "nepali-day-js/locale";
+// Number conversion
+localenumber(2025, "np"); // "२०२५"
+localenumber("Price 1500$", "np"); // "Price १५००$" (symbols unchanged)
+
+// Months
+localeShortMonth(1, "en"); // "Bai"
+localeShortMonth(1, "np"); // "बै"
+localeMonth(1, "en"); // "Baisakh"
+localeMonth(1, "np"); // "बैशाख"
+
+// Weekdays
+localeShortday(1, "en"); // "Sun"
+localeShortday(1, "np"); // "आइत"
+localeday(1, "en"); // "Sunday"
+localeday(1, "np"); // "आइतबार"
+```
 
 ## 📅 Utility Methods
 
