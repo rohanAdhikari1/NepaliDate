@@ -33,7 +33,7 @@ export const ADtoBS = (
   let bsYear = START_YEAR_BS,
     bsMonth = START_MONTH_BS,
     bsDay = START_DAY_BS - 1,
-    dayOfWeek = START_WEEK_DAY_BS;
+    dayOfWeek = START_WEEK_DAY_BS - 1;
 
   let i = 0,
     j = bsMonth;
@@ -74,7 +74,7 @@ export const BStoAD = (
   let adYear = START_YEAR_AD,
     adMonth = START_MONTH_AD,
     adDay = START_DAY_AD - 1,
-    dayOfWeek = START_WEEK_DAY_AD;
+    dayOfWeek = START_WEEK_DAY_AD - 1;
 
   while (totalBsDays > 0) {
     const daysInMonth = getDaysInADMonth(adYear, adMonth);

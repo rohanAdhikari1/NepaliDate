@@ -4,11 +4,7 @@ import { NEPALI_DATE_MAP, NORMAL_MONTHS, LEAP_MONTHS, NUM_NP, BASE_YEAR_BS, BASE
  */
 export const calculateDayofWeek = (year, month, day) => {
     const totalDays = getTotalBSDays(year, month, day);
-    console.log(totalDays);
     let dayOfWeek = START_WEEK_DAY_AD;
-    console.log(dayOfWeek);
-    console.log(dayOfWeek - 2 + totalDays);
-    console.log((dayOfWeek - 2 + totalDays) % 7);
     dayOfWeek = ((dayOfWeek - 2 + totalDays) % 7) + 1;
     return dayOfWeek;
 };
