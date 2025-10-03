@@ -12,7 +12,7 @@ const initialize = (adDate) => {
 const nepalidayjs = (date = null) => {
     if (date) {
         if (date instanceof NepaliDate) {
-            return date;
+            return new NepaliDate(date.toObject());
         }
         else if (typeof date === "string") {
             let bsdate = parseWithOutFormat(date);

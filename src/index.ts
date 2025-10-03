@@ -27,7 +27,7 @@ const initialize = (adDate: Date): NepaliDate => {
 const nepalidayjs = (date: NepaliDate | string | null = null): NepaliDate => {
   if (date) {
     if (date instanceof NepaliDate) {
-      return date;
+      return new NepaliDate(date.toObject());
     } else if (typeof date === "string") {
       let bsdate = parseWithOutFormat(date);
       if (bsdate) {

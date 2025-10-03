@@ -45,6 +45,8 @@ const bsDate = nepalidayjs.fromAd(new Date("2025-10-03"));
 const parsedDate = nepalidayjs("2082-06-16");
 ```
 
+### Additional:
+
 You can also initialize a Nepali date directly by passing an object to the NepaliDate constructor.The object structure follows the NepaliDateProps interface:
 
 ```ts
@@ -250,15 +252,15 @@ date.locale("np").format("MMMM D, YYYY"); // "आश्विन १६, २०�
 Setter methods **update the current instance** of `NepaliDate` in place.  
 These methods modify the existing object rather than creating a new one.
 
-| Method                      | Parameters       | Returns | Description                                                    |
-| --------------------------- | ---------------- | ------- | -------------------------------------------------------------- |
-| `setYear(year: number)`     | `year: number`   | `this`  | Sets the year of the current instance.                         |
-| `setMonth(month: number)`   | `month: number`  | `this`  | Sets the month of the current instance.                        |
-| `setDay(day: number)`       | `day: number`    | `this`  | Sets the day of the current instance.                          |
-| `setHour(hour: number)`     | `hour: number`   | `this`  | Sets the hour (0–23) in the current instance.                  |
-| `setMinute(minute: number)` | `minute: number` | `this`  | Sets the minute (0–59) in the current instance.                |
-| `setSecond(second: number)` | `second: number` | `this`  | Sets the second (0–59) in the current instance.                |
-| `locale(value: string)`     | `value: string`  | `this`  | Updates the locale (`"np"` or `"en"`) in the current instance. |
+| Method                      | Parameters       | Description                                                    |
+| --------------------------- | ---------------- | -------------------------------------------------------------- |
+| `setYear(year: number)`     | `year: number`   | Sets the year of the current instance.                         |
+| `setMonth(month: number)`   | `month: number`  | Sets the month of the current instance.                        |
+| `setDay(day: number)`       | `day: number`    | Sets the day of the current instance.                          |
+| `setHour(hour: number)`     | `hour: number`   | Sets the hour (0–23) in the current instance.                  |
+| `setMinute(minute: number)` | `minute: number` | Sets the minute (0–59) in the current instance.                |
+| `setSecond(second: number)` | `second: number` | Sets the second (0–59) in the current instance.                |
+| `locale(value: string)`     | `value: string`  | Updates the locale (`"np"` or `"en"`) in the current instance. |
 
 ---
 
@@ -274,7 +276,7 @@ Getter methods **retrieve values** from the current `NepaliDate` instance withou
 
 ---
 
-## Setter/Getter (Deep Copy)
+## Setter/Getter
 
 These methods can act as [**getter**](#getter) or [**setter**](#setter) depending on whether a parameter is provided.  
 When a value is passed, a **new `NepaliDate` instance is returned** with the updated value, leaving the original instance unchanged. This avoids shallow copy issues and preserves immutability.
@@ -319,9 +321,56 @@ console.log(date.format("YYYY-MM-DD")); // "2081-02-05" (original unchanged)
 
 ---
 
-## Manipulation
+## Manipulation Methods
 
-### Example
+`NepaliDate` provides flexible methods to manipulate dates and times. Some methods **mutate the current instance**, while others **return a new instance** for immutability.
+
+---
+
+## 1. Immutable Methods: `.add()` / `.subtract()`
+
+These methods **return a new `NepaliDate` instance**, leaving the original unchanged.
+
+```ts
+const date = nepalidayjs("2082-06-16 14:30:45");
+//Add
+const newDate = date.add(1, "year").add(2, "month");
+console.log(newDate.format()); // "2083-08-16"
+
+// Subtract
+const subtracted = date.subtract(5, "day");
+console.log(subtracted.format()); // "2082-06-11"
+```
+
+**Supported units**: `"year"`, `"month"`, `"week"`, `"day"`, `"hour"`, `"minute"`
+
+---
+
+## 2. Mutable Shortcut Methods
+
+These methods update the current instance in place:
+
+- `addDays(days)`, `subDays(days)`
+- `addMonths(months)`, `subMonths(months)`
+- `addYears(years)`, `subYears(years)`
+- `addWeeks(weeks)`, `subWeeks(weeks)`
+- `addDay()`, `subDay()`, `addMonth()`, `subMonth()`, `addYear()`, `subYear()`, `addWeek()`, `subWeek()`
+
+```ts
+const date = nepalidayjs("2082-06-16");
+
+// Add 10 days
+date.addDays(10);
+console.log(date.format()); // "2082-06-26"
+
+// Subtract 1 month
+date.subMonth();
+console.log(date.format()); // "2082-05-26"
+
+// Add 3 year
+date.addYears(3);
+console.log(date.format()); // "2085-05-26"
+```
 
 ---
 
@@ -451,10 +500,25 @@ nepalidayjs.maxYear();
 
 Returns the last year supported by the Nepali date library.
 
+## Pro Tip:
+
+You can also deep copy a `NepaliDate` object like this:
+
+```ts
+const date = nepalidayjs("2082-06-16 14:30:45");
+const newDate = nepalidayjs(date); // deep copy
+
+newDate.setYear(2080);
+
+console.log(date.format()); // "2082-06-16" (original unchanged)
+console.log(newDate.format()); // "2080-06-16" (copy updated)
+```
+
 ## 📌 To-Do
 
 - [ ] Parse date using format
-- [ ] utilities function to calculate difference between days
+- [ ] make isBefore, isAfter decision based/depending on unit.
+- [ ] utilities function to calculate difference between two BS dates depending on unit.
 
 ## 👨‍💻 Credits
 
