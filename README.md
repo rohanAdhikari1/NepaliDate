@@ -238,7 +238,7 @@ console.log(date.toString());
 
 // Convert to AD (Gregorian) date
 console.log(date.toAd());
-// Fri Oct 03 2025 14:30:45 GMT+0545 (Nepal Time)
+// Fri Oct 03 2025 14:30:45
 
 date.format(); // "2082-06-16" (default)
 date.format("DD/MM/YYYY"); // "16/06/2082"

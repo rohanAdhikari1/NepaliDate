@@ -123,12 +123,12 @@ export const LEAP_MONTHS: number[] = [
 export const MONTHS_EN: string[] = [
   "Baisakh",
   "Jestha",
-  "Asar",
+  "Ashadh",
   "Shrawan",
   "Bhadra",
-  "Aswin",
+  "Ashwin",
   "Kartik",
-  "Mangsir",
+  "Mansir",
   "Poush",
   "Magh",
   "Falgun",
@@ -137,9 +137,9 @@ export const MONTHS_EN: string[] = [
 export const MONTHS_SHORT_EN: string[] = [
   "Bai",
   "Jes",
-  "Asa",
+  "Ash",
   "Shr",
-  "Bhd",
+  "Bha",
   "Asw",
   "Kar",
   "Man",
@@ -150,8 +150,8 @@ export const MONTHS_SHORT_EN: string[] = [
 ];
 export const MONTHS_NP: string[] = [
   "बैशाख",
-  "जेठ",
-  "असार",
+  "ज्येष्ठ",
+  "आषाढ",
   "श्रावण",
   "भाद्र",
   "आश्विन",
@@ -218,11 +218,11 @@ export const WEEKDAYS_SHORT_NP: string[] = [
 export const WEEKDAYS_LONG_NP: string[] = [
   "आइतबार",
   "सोमबार",
-  "मंगलबार",
+  "मङ्गलबार",
   "बुधबार",
   "बिहिबार",
   "शुक्रबार",
-  "शनिबार",
+  "शनिबार"
 ];
 
 export const REGEX_PARSE =
